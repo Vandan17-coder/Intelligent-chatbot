@@ -58,11 +58,31 @@
     <div class="main-container">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="sidebar-section">
+            <div class="sidebar-section student-info-section">
                 <h3 class="sidebar-title">
                     <i class="fas fa-user-circle"></i>
                     Student Dashboard
                 </h3>
+                <div class="student-info">
+                    <div class="student-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="student-details">
+                        <h4 id="studentName">John Doe</h4>
+                        <p id="studentId">ID: 2026CS001</p>
+                        <span class="student-status">Active</span>
+                    </div>
+                </div>
+                <div class="dashboard-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-book"></i>
+                        <span>6 Courses</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>GPA: 3.8</span>
+                    </div>
+                </div>
             </div>
             
             <div class="sidebar-section">
@@ -70,27 +90,34 @@
                     <i class="fas fa-bullhorn"></i>
                     Announcements
                 </h3>
-                <div class="announcement-item">
+                <div class="announcement-item clickable" data-announcement="Winter semester registration opens December 1st, 2026. Early registration benefits available.">
                     <span class="announcement-badge">New</span>
                     <p>Winter semester registration opens Dec 1</p>
                 </div>
-                <div class="announcement-item">
+                <div class="announcement-item clickable" data-announcement="Mid-term examination schedule has been released. Check your student portal for detailed timings.">
                     <p>Mid-term exam schedule released</p>
+                </div>
+                <div class="announcement-item clickable" data-announcement="Library extended hours during finals week: Open 24/7 from May 15-30.">
+                    <p>Library extended hours for finals</p>
                 </div>
             </div>
             
             <div class="sidebar-section">
                 <h3 class="sidebar-title">
                     <i class="fas fa-calendar-alt"></i>
-                    Events
+                    Upcoming Events
                 </h3>
-                <div class="event-item">
+                <div class="event-item clickable" data-event-title="Tech Fest 2026" data-event-date="December 15, 2026" data-event-time="9:00 AM - 5:00 PM" data-event-location="Main Auditorium" data-event-description="Annual technology festival featuring hackathons, tech talks, and innovation showcases. Open to all students.">
                     <span class="event-date">Dec 15</span>
                     <p>Tech Fest 2026</p>
                 </div>
-                <div class="event-item">
+                <div class="event-item clickable" data-event-title="Career Fair" data-event-date="January 10, 2026" data-event-time="10:00 AM - 4:00 PM" data-event-location="Sports Complex" data-event-description="Meet recruiters from top companies. Bring multiple copies of your resume. Dress code: Business formal.">
                     <span class="event-date">Jan 10</span>
                     <p>Career Fair</p>
+                </div>
+                <div class="event-item clickable" data-event-title="Alumni Networking Night" data-event-date="January 25, 2026" data-event-time="6:00 PM - 9:00 PM" data-event-location="Conference Hall" data-event-description="Network with successful alumni. Free for all students. Registration required.">
+                    <span class="event-date">Jan 25</span>
+                    <p>Alumni Networking Night</p>
                 </div>
             </div>
             
@@ -99,15 +126,20 @@
                     <i class="fas fa-calendar-check"></i>
                     Academic Calendar
                 </h3>
-                <a href="#" class="sidebar-link">View Full Calendar</a>
+                <button class="sidebar-link" id="viewCalendarBtn">
+                    <i class="fas fa-calendar"></i>
+                    View Full Calendar
+                </button>
             </div>
             
             <div class="sidebar-section">
                 <h3 class="sidebar-title">
                     <i class="fas fa-question-circle"></i>
-                    FAQs
+                    Quick Links
                 </h3>
-                <a href="#" class="sidebar-link">Common Questions</a>
+                <a href="#" class="sidebar-link">FAQs</a>
+                <a href="#" class="sidebar-link">Course Materials</a>
+                <a href="#" class="sidebar-link">Grades</a>
             </div>
         </aside>
 
@@ -304,8 +336,8 @@
             <h2>Student Portal Login</h2>
             <form class="login-form">
                 <div class="form-group">
-                    <label for="studentId">Student ID</label>
-                    <input type="text" id="studentId" placeholder="Enter your student ID" required>
+                    <label for="loginStudentId">Student ID</label>
+                    <input type="text" id="loginStudentId" placeholder="Enter your student ID" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
@@ -320,6 +352,106 @@
                 <button type="submit" class="login-submit-btn">Login</button>
                 <p class="signup-link">Don't have an account? <a href="#">Sign up here</a></p>
             </form>
+        </div>
+    </div>
+
+    <!-- Event Details Modal -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content event-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="event-modal-header">
+                <i class="fas fa-calendar-star"></i>
+                <h2 id="eventModalTitle">Event Title</h2>
+            </div>
+            <div class="event-modal-body">
+                <div class="event-detail">
+                    <i class="fas fa-calendar-day"></i>
+                    <div>
+                        <strong>Date</strong>
+                        <p id="eventModalDate">-</p>
+                    </div>
+                </div>
+                <div class="event-detail">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <strong>Time</strong>
+                        <p id="eventModalTime">-</p>
+                    </div>
+                </div>
+                <div class="event-detail">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <strong>Location</strong>
+                        <p id="eventModalLocation">-</p>
+                    </div>
+                </div>
+                <div class="event-detail description">
+                    <i class="fas fa-info-circle"></i>
+                    <div>
+                        <strong>Description</strong>
+                        <p id="eventModalDescription">-</p>
+                    </div>
+                </div>
+            </div>
+            <div class="event-modal-footer">
+                <button class="event-action-btn primary">Register for Event</button>
+                <button class="event-action-btn secondary">Add to Calendar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Announcement Modal -->
+    <div id="announcementModal" class="modal">
+        <div class="modal-content announcement-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="announcement-modal-header">
+                <i class="fas fa-bullhorn"></i>
+                <h2>Announcement Details</h2>
+            </div>
+            <div class="announcement-modal-body">
+                <p id="announcementModalText">-</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Academic Calendar Modal -->
+    <div id="calendarModal" class="modal">
+        <div class="modal-content calendar-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="calendar-modal-header">
+                <button class="calendar-nav-btn" id="prevMonth">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <h2 id="calendarMonthYear">January 2026</h2>
+                <button class="calendar-nav-btn" id="nextMonth">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="calendar-legend">
+                <span class="legend-item"><span class="legend-dot holiday"></span> Holidays</span>
+                <span class="legend-item"><span class="legend-dot event"></span> Events</span>
+                <span class="legend-item"><span class="legend-dot exam"></span> Exams</span>
+            </div>
+            <div class="calendar-body">
+                <div class="calendar-weekdays">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                </div>
+                <div class="calendar-dates" id="calendarDates">
+                    <!-- Calendar dates will be generated by JavaScript -->
+                </div>
+            </div>
+            <div class="calendar-events-list">
+                <h3>Upcoming Events & Holidays</h3>
+                <div id="calendarEventsList">
+                    <!-- Events list will be populated by JavaScript -->
+                </div>
+            </div>
         </div>
     </div>
 

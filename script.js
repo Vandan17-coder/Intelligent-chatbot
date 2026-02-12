@@ -325,7 +325,7 @@ function initSmoothScroll() {
 function initLoginModal() {
     const loginBtn = document.querySelector('.login-btn');
     const loginModal = document.getElementById('loginModal');
-    const closeModal = document.querySelector('.close-modal');
+    const closeModals = document.querySelectorAll('.close-modal');
     const loginForm = document.querySelector('.login-form');
     
     // Open modal
@@ -333,37 +333,273 @@ function initLoginModal() {
         loginModal.classList.add('active');
     });
     
-    // Close modal on X click
-    closeModal.addEventListener('click', () => {
-        loginModal.classList.remove('active');
+    // Close all modals on X click
+    closeModals.forEach(closeBtn => {
+        closeBtn.addEventListener('click', () => {
+            closeBtn.closest('.modal').classList.remove('active');
+        });
     });
     
     // Close modal on outside click
-    loginModal.addEventListener('click', (e) => {
-        if (e.target === loginModal) {
-            loginModal.classList.remove('active');
-        }
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
     });
     
     // Close modal on ESC key
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && loginModal.classList.contains('active')) {
-            loginModal.classList.remove('active');
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal.active').forEach(modal => {
+                modal.classList.remove('active');
+            });
         }
     });
     
     // Handle login form submission
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const studentId = document.getElementById('studentId').value;
+        const studentId = document.getElementById('loginStudentId').value;
         const password = document.getElementById('password').value;
         
         // Simulate login (replace with actual authentication)
         if (studentId && password) {
-            alert(`Welcome, ${studentId}! Login successful.`);
+            // Update student info in dashboard
+            document.getElementById('studentName').textContent = 'John Doe';
+            document.getElementById('studentId').textContent = `ID: ${studentId}`;
+            
+            alert(`Welcome back, ${studentId}! Login successful.`);
             loginModal.classList.remove('active');
             loginForm.reset();
         }
+    });
+}
+
+// ============================================
+// Event Modal Functionality
+// ============================================
+function initEventModals() {
+    const eventItems = document.querySelectorAll('.event-item.clickable');
+    const eventModal = document.getElementById('eventModal');
+    
+    eventItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const title = item.getAttribute('data-event-title');
+            const date = item.getAttribute('data-event-date');
+            const time = item.getAttribute('data-event-time');
+            const location = item.getAttribute('data-event-location');
+            const description = item.getAttribute('data-event-description');
+            
+            // Populate modal
+            document.getElementById('eventModalTitle').textContent = title;
+            document.getElementById('eventModalDate').textContent = date;
+            document.getElementById('eventModalTime').textContent = time;
+            document.getElementById('eventModalLocation').textContent = location;
+            document.getElementById('eventModalDescription').textContent = description;
+            
+            // Show modal
+            eventModal.classList.add('active');
+        });
+    });
+    
+    // Event action buttons
+    const registerBtn = document.querySelector('.event-action-btn.primary');
+    const addToCalendarBtn = document.querySelector('.event-action-btn.secondary');
+    
+    registerBtn.addEventListener('click', () => {
+        const eventTitle = document.getElementById('eventModalTitle').textContent;
+        alert(`You have successfully registered for ${eventTitle}!`);
+        eventModal.classList.remove('active');
+    });
+    
+    addToCalendarBtn.addEventListener('click', () => {
+        const eventTitle = document.getElementById('eventModalTitle').textContent;
+        alert(`${eventTitle} has been added to your calendar!`);
+    });
+}
+
+// ============================================
+// Announcement Modal Functionality
+// ============================================
+function initAnnouncementModals() {
+    const announcementItems = document.querySelectorAll('.announcement-item.clickable');
+    const announcementModal = document.getElementById('announcementModal');
+    
+    announcementItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const text = item.getAttribute('data-announcement');
+            
+            // Populate modal
+            document.getElementById('announcementModalText').textContent = text;
+            
+            // Show modal
+            announcementModal.classList.add('active');
+        });
+    });
+}
+
+// ============================================
+// Academic Calendar Functionality
+// ============================================
+let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
+
+// Calendar events data (holidays, exams, events)
+const calendarEvents = {
+    '2026-01-01': { type: 'holiday', name: 'New Year\'s Day' },
+    '2026-01-10': { type: 'event', name: 'Career Fair' },
+    '2026-01-25': { type: 'event', name: 'Alumni Networking Night' },
+    '2026-02-14': { type: 'holiday', name: 'Valentine\'s Day' },
+    '2026-03-15': { type: 'exam', name: 'Mid-term Exams Start' },
+    '2026-03-22': { type: 'exam', name: 'Mid-term Exams End' },
+    '2026-04-01': { type: 'holiday', name: 'Spring Break' },
+    '2026-05-01': { type: 'holiday', name: 'Labor Day' },
+    '2026-06-01': { type: 'exam', name: 'Final Exams Start' },
+    '2026-06-12': { type: 'exam', name: 'Final Exams End' },
+    '2026-07-04': { type: 'holiday', name: 'Independence Day' },
+    '2026-09-01': { type: 'event', name: 'Fall Semester Begins' },
+    '2026-10-31': { type: 'event', name: 'Halloween Festival' },
+    '2026-11-26': { type: 'holiday', name: 'Thanksgiving' },
+    '2026-12-01': { type: 'event', name: 'Winter Registration Opens' },
+    '2026-12-15': { type: 'event', name: 'Tech Fest 2026' },
+    '2026-12-25': { type: 'holiday', name: 'Christmas' },
+    '2026-12-31': { type: 'holiday', name: 'New Year\'s Eve' },
+};
+
+function initCalendar() {
+    const viewCalendarBtn = document.getElementById('viewCalendarBtn');
+    const calendarModal = document.getElementById('calendarModal');
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
+    
+    viewCalendarBtn.addEventListener('click', () => {
+        renderCalendar(currentMonth, currentYear);
+        calendarModal.classList.add('active');
+    });
+    
+    prevMonthBtn.addEventListener('click', () => {
+        currentMonth--;
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        }
+        renderCalendar(currentMonth, currentYear);
+    });
+    
+    nextMonthBtn.addEventListener('click', () => {
+        currentMonth++;
+        if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+        }
+        renderCalendar(currentMonth, currentYear);
+    });
+}
+
+function renderCalendar(month, year) {
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                       'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    // Update header
+    document.getElementById('calendarMonthYear').textContent = `${monthNames[month]} ${year}`;
+    
+    // Get first day of month and number of days
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInPrevMonth = new Date(year, month, 0).getDate();
+    
+    const calendarDates = document.getElementById('calendarDates');
+    calendarDates.innerHTML = '';
+    
+    const today = new Date();
+    const isCurrentMonth = month === today.getMonth() && year === today.getFullYear();
+    const todayDate = today.getDate();
+    
+    // Previous month days
+    for (let i = firstDay - 1; i >= 0; i--) {
+        const dateDiv = createDateElement(daysInPrevMonth - i, 'other-month');
+        calendarDates.appendChild(dateDiv);
+    }
+    
+    // Current month days
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        const hasEvent = calendarEvents[dateKey];
+        
+        let classes = '';
+        if (isCurrentMonth && day === todayDate) {
+            classes = 'today';
+        }
+        if (hasEvent) {
+            classes += ` has-${hasEvent.type}`;
+        }
+        
+        const dateDiv = createDateElement(day, classes);
+        calendarDates.appendChild(dateDiv);
+    }
+    
+    // Next month days
+    const totalCells = calendarDates.children.length;
+    const remainingCells = 42 - totalCells; // 6 rows * 7 days
+    for (let i = 1; i <= remainingCells; i++) {
+        const dateDiv = createDateElement(i, 'other-month');
+        calendarDates.appendChild(dateDiv);
+    }
+    
+    // Update events list
+    updateEventsList(month, year);
+}
+
+function createDateElement(day, classes) {
+    const dateDiv = document.createElement('div');
+    dateDiv.className = `calendar-date ${classes}`;
+    dateDiv.textContent = day;
+    return dateDiv;
+}
+
+function updateEventsList(month, year) {
+    const eventsList = document.getElementById('calendarEventsList');
+    eventsList.innerHTML = '';
+    
+    // Get events for current month
+    const monthEvents = [];
+    Object.keys(calendarEvents).forEach(dateKey => {
+        const [eventYear, eventMonth] = dateKey.split('-');
+        if (parseInt(eventYear) === year && parseInt(eventMonth) === month + 1) {
+            monthEvents.push({
+                date: dateKey,
+                ...calendarEvents[dateKey]
+            });
+        }
+    });
+    
+    // Sort by date
+    monthEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    if (monthEvents.length === 0) {
+        eventsList.innerHTML = '<p style="color: var(--text-secondary); text-align: center;">No events this month</p>';
+        return;
+    }
+    
+    // Render events
+    monthEvents.forEach(event => {
+        const eventDiv = document.createElement('div');
+        eventDiv.className = `calendar-event-item ${event.type}`;
+        
+        const date = new Date(event.date);
+        const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        
+        eventDiv.innerHTML = `
+            <div class="calendar-event-item-header">
+                <h4>${event.name}</h4>
+                <span class="calendar-event-type ${event.type}">${event.type}</span>
+            </div>
+            <p>${dateStr}</p>
+        `;
+        
+        eventsList.appendChild(eventDiv);
     });
 }
 
@@ -468,6 +704,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initSmoothScroll();
     initLoginModal();
+    initEventModals();
+    initAnnouncementModals();
+    initCalendar();
     initContactForm();
     initNewsletterForm();
     initScrollAnimations();

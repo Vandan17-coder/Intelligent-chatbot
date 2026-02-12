@@ -271,6 +271,85 @@ button {
     font-size: 1.1rem;
 }
 
+/* Student Info Section */
+.student-info-section {
+    background: var(--gradient-blue);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+}
+
+.student-info-section .sidebar-title {
+    color: white;
+}
+
+.student-info-section .sidebar-title i {
+    color: white;
+}
+
+.student-info {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.student-avatar {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.student-details h4 {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.student-details p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.student-status {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.75rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    font-size: 0.85rem;
+}
+
+.stat-item i {
+    font-size: 1.2rem;
+}
+
 .announcement-item,
 .event-item {
     background: var(--bg-tertiary);
@@ -278,6 +357,18 @@ button {
     border-radius: 8px;
     margin-bottom: 0.5rem;
     font-size: 0.85rem;
+    transition: var(--transition-smooth);
+}
+
+.announcement-item.clickable,
+.event-item.clickable {
+    cursor: pointer;
+}
+
+.announcement-item.clickable:hover,
+.event-item.clickable:hover {
+    background: var(--border-color);
+    transform: translateX(4px);
 }
 
 .announcement-item p,
@@ -312,9 +403,17 @@ button {
     color: var(--primary-blue);
     font-size: 0.85rem;
     font-weight: 500;
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     padding: 0.5rem 0;
     transition: var(--transition-smooth);
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 0.25rem;
 }
 
 .sidebar-link:hover {
@@ -1264,6 +1363,365 @@ button {
 
 .signup-link a:hover {
     text-decoration: underline;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+/* Event Modal */
+.event-modal-content {
+    max-width: 600px;
+}
+
+.event-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.event-modal-header i {
+    font-size: 2rem;
+    color: var(--primary-blue);
+}
+
+.event-modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.event-modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.event-detail {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+}
+
+.event-detail i {
+    font-size: 1.2rem;
+    color: var(--primary-blue);
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+}
+
+.event-detail strong {
+    display: block;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+    font-size: 0.85rem;
+}
+
+.event-detail p {
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.event-detail.description {
+    flex-direction: column;
+}
+
+.event-modal-footer {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.event-action-btn {
+    flex: 1;
+    padding: 0.875rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.event-action-btn.primary {
+    background: var(--gradient-blue);
+    color: white;
+}
+
+.event-action-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.event-action-btn.secondary {
+    background: var(--bg-tertiary);
+    color: var(--primary-blue);
+    border: 2px solid var(--border-color);
+}
+
+.event-action-btn.secondary:hover {
+    border-color: var(--primary-blue);
+    background: var(--primary-blue);
+    color: white;
+}
+
+/* Announcement Modal */
+.announcement-modal-content {
+    max-width: 550px;
+}
+
+.announcement-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.announcement-modal-header i {
+    font-size: 1.8rem;
+    color: var(--primary-blue);
+}
+
+.announcement-modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.announcement-modal-body {
+    padding: 1.5rem;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    line-height: 1.8;
+}
+
+.announcement-modal-body p {
+    color: var(--text-primary);
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Calendar Modal */
+.calendar-modal-content {
+    max-width: 800px;
+    width: 90vw;
+}
+
+.calendar-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.calendar-modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+.calendar-nav-btn {
+    width: 40px;
+    height: 40px;
+    background: var(--bg-tertiary);
+    border: none;
+    border-radius: 8px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-nav-btn:hover {
+    background: var(--primary-blue);
+    color: white;
+}
+
+.calendar-legend {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.legend-dot.holiday {
+    background: #EF4444;
+}
+
+.legend-dot.event {
+    background: var(--primary-blue);
+}
+
+.legend-dot.exam {
+    background: #F59E0B;
+}
+
+.calendar-body {
+    background: var(--bg-tertiary);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.calendar-weekdays div {
+    text-align: center;
+    font-weight: 600;
+    color: var(--primary-blue);
+    font-size: 0.85rem;
+    padding: 0.5rem;
+}
+
+.calendar-dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+}
+
+.calendar-date {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    position: relative;
+    transition: var(--transition-smooth);
+    background: var(--bg-secondary);
+}
+
+.calendar-date:hover {
+    background: var(--border-color);
+}
+
+.calendar-date.other-month {
+    color: var(--text-light);
+    opacity: 0.5;
+}
+
+.calendar-date.today {
+    background: var(--primary-blue);
+    color: white;
+    font-weight: 700;
+}
+
+.calendar-date.has-event::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    width: 6px;
+    height: 6px;
+    background: var(--primary-blue);
+    border-radius: 50%;
+}
+
+.calendar-date.has-holiday::after {
+    background: #EF4444;
+}
+
+.calendar-date.has-exam::after {
+    background: #F59E0B;
+}
+
+.calendar-events-list {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.calendar-events-list h3 {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.calendar-event-item {
+    padding: 1rem;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    border-left: 4px solid var(--primary-blue);
+    transition: var(--transition-smooth);
+}
+
+.calendar-event-item:hover {
+    transform: translateX(4px);
+}
+
+.calendar-event-item.holiday {
+    border-left-color: #EF4444;
+}
+
+.calendar-event-item.exam {
+    border-left-color: #F59E0B;
+}
+
+.calendar-event-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 0.5rem;
+}
+
+.calendar-event-item h4 {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.calendar-event-type {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.calendar-event-type.holiday {
+    background: #FEE2E2;
+    color: #DC2626;
+}
+
+.calendar-event-type.event {
+    background: #DBEAFE;
+    color: var(--primary-blue);
+}
+
+.calendar-event-type.exam {
+    background: #FEF3C7;
+    color: #D97706;
+}
+
+.calendar-event-item p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin: 0;
 }
 
 /* Responsive for content sections */
