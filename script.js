@@ -263,6 +263,14 @@ function initSmoothScroll() {
             if (href.startsWith('#')) {
                 e.preventDefault();
                 
+                // Close mobile menu if open
+                if (mobileNav.classList.contains('active')) {
+                    mobileNav.classList.remove('active');
+                    const icon = mobileMenuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+                
                 // Remove active class from all links
                 navLinks.forEach(l => l.classList.remove('active'));
                 
@@ -274,14 +282,113 @@ function initSmoothScroll() {
                 const targetElement = document.getElementById(targetId);
                 
                 if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    const headerHeight = document.querySelector('.header').offsetHeight;
+                    const targetPosition = targetElement.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
                     });
                 }
             }
         });
     });
+    
+    // Update active link on scroll
+    window.addEventListener('scroll', () => {
+        const sections = ['home', 'about', 'departments', 'contact'];
+        const headerHeight = document.querySelector('.header').offsetHeight;
+        const scrollPosition = window.scrollY + headerHeight + 100;
+        
+        sections.forEach(sectionId => {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            }
+        });
+    });
+}
+
+// ============================================
+// Login Modal Functionality
+// ============================================
+function initLoginModal() {
+    const loginBtn = document.querySelector('.login-btn');
+    const loginModal = document.getElementById('loginModal');
+    const closeModal = document.querySelector('.close-modal');
+    const loginForm = document.querySelector('.login-form');
+    
+    // Open modal
+    loginBtn.addEventListener('click', () => {
+        loginModal.classList.add('active');
+    });
+    
+    // Close modal on X click
+    closeModal.addEventListener('click', () => {
+        loginModal.classList.remove('active');
+    });
+    
+    // Close modal on outside click
+    loginModal.addEventListener('click', (e) => {
+        if (e.target === loginModal) {
+            loginModal.classList.remove('active');
+        }
+    });
+    
+    // Close modal on ESC key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && loginModal.classList.contains('active')) {
+            loginModal.classList.remove('active');
+        }
+    });
+    
+    // Handle login form submission
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const studentId = document.getElementById('studentId').value;
+        const password = document.getElementById('password').value;
+        
+        // Simulate login (replace with actual authentication)
+        if (studentId && password) {
+            alert(`Welcome, ${studentId}! Login successful.`);
+            loginModal.classList.remove('active');
+            loginForm.reset();
+        }
+    });
+}
+
+// ============================================
+// Contact Form Handler
+// ============================================
+function initContactForm() {
+    const contactForm = document.querySelector('.contact-form');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(contactForm);
+            const name = contactForm.querySelector('input[type="text"]').value;
+            const email = contactForm.querySelector('input[type="email"]').value;
+            const subject = contactForm.querySelectorAll('input[type="text"]')[1].value;
+            const message = contactForm.querySelector('textarea').value;
+            
+            if (name && email && subject && message) {
+                alert(`Thank you, ${name}! Your message has been sent successfully. We'll get back to you at ${email} soon.`);
+                contactForm.reset();
+            }
+        });
+    }
 }
 
 // ============================================
@@ -360,6 +467,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initThemeToggle();
     initMobileMenu();
     initSmoothScroll();
+    initLoginModal();
+    initContactForm();
     initNewsletterForm();
     initScrollAnimations();
     initAutoResizeInput();
