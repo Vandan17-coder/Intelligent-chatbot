@@ -58,11 +58,14 @@
     <div class="main-container">
         <!-- Sidebar -->
         <aside class="sidebar">
+            <!-- Student Dashboard Section -->
             <div class="sidebar-section student-info-section">
-                <h3 class="sidebar-title">
-                    <i class="fas fa-user-circle"></i>
-                    Student Dashboard
-                </h3>
+                <div class="section-header">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Student Dashboard</span>
+                    </h3>
+                </div>
                 <div class="student-info" id="studentInfoCard">
                     <div class="student-avatar" id="studentAvatar">
                         <i class="fas fa-user"></i>
@@ -75,75 +78,187 @@
                 </div>
                 <div class="dashboard-stats">
                     <div class="stat-item" id="coursesStatBtn" title="View your enrolled courses">
-                        <i class="fas fa-book"></i>
-                        <span id="coursesCount">6 Courses</span>
+                        <div class="stat-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">Courses</span>
+                            <span class="stat-value" id="coursesCount">6</span>
+                        </div>
                     </div>
                     <div class="stat-item" id="gpaStatBtn" title="View your grades">
-                        <i class="fas fa-chart-line"></i>
-                        <span id="gpaValue">GPA: 3.8</span>
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">GPA</span>
+                            <span class="stat-value" id="gpaValue">3.8</span>
+                        </div>
                     </div>
                 </div>
                 <button class="view-profile-btn" id="viewProfileBtn">
                     <i class="fas fa-id-card"></i>
-                    View Full Profile
+                    <span>View Full Profile</span>
                 </button>
             </div>
             
-            <div class="sidebar-section">
-                <h3 class="sidebar-title">
-                    <i class="fas fa-bullhorn"></i>
-                    Announcements
-                </h3>
-                <div class="announcement-item clickable" data-announcement="Winter semester registration opens December 1st, 2026. Early registration benefits available.">
-                    <span class="announcement-badge">New</span>
-                    <p>Winter semester registration opens Dec 1</p>
+            <!-- Announcements Section -->
+            <div class="sidebar-section announcements-section">
+                <div class="section-header">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-bullhorn"></i>
+                        <span>Announcements</span>
+                    </h3>
                 </div>
-                <div class="announcement-item clickable" data-announcement="Mid-term examination schedule has been released. Check your student portal for detailed timings.">
-                    <p>Mid-term exam schedule released</p>
-                </div>
-                <div class="announcement-item clickable" data-announcement="Library extended hours during finals week: Open 24/7 from May 15-30.">
-                    <p>Library extended hours for finals</p>
+                <div class="scrollable-content">
+                    <div class="announcement-item clickable" data-announcement="Winter semester registration opens December 1st, 2026. Early registration benefits available.">
+                        <div class="announcement-header">
+                            <span class="announcement-badge">New</span>
+                            <span class="announcement-time">2 hours ago</span>
+                        </div>
+                        <p class="announcement-text">Winter semester registration opens Dec 1</p>
+                        <div class="announcement-footer">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Click for details</span>
+                        </div>
+                    </div>
+                    <div class="announcement-item clickable" data-announcement="Mid-term examination schedule has been released. Check your student portal for detailed timings.">
+                        <div class="announcement-header">
+                            <span class="announcement-time">1 day ago</span>
+                        </div>
+                        <p class="announcement-text">Mid-term exam schedule released</p>
+                        <div class="announcement-footer">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Click for details</span>
+                        </div>
+                    </div>
+                    <div class="announcement-item clickable" data-announcement="Library extended hours during finals week: Open 24/7 from May 15-30.">
+                        <div class="announcement-header">
+                            <span class="announcement-time">3 days ago</span>
+                        </div>
+                        <p class="announcement-text">Library extended hours for finals</p>
+                        <div class="announcement-footer">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Click for details</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="sidebar-section">
-                <h3 class="sidebar-title">
-                    <i class="fas fa-calendar-alt"></i>
-                    Upcoming Events
-                </h3>
-                <div class="event-item clickable" data-event-title="Tech Fest 2026" data-event-date="December 15, 2026" data-event-time="9:00 AM - 5:00 PM" data-event-location="Main Auditorium" data-event-description="Annual technology festival featuring hackathons, tech talks, and innovation showcases. Open to all students.">
-                    <span class="event-date">Dec 15</span>
-                    <p>Tech Fest 2026</p>
+            <!-- Upcoming Events Section -->
+            <div class="sidebar-section events-section">
+                <div class="section-header">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Upcoming Events</span>
+                    </h3>
                 </div>
-                <div class="event-item clickable" data-event-title="Career Fair" data-event-date="January 10, 2026" data-event-time="10:00 AM - 4:00 PM" data-event-location="Sports Complex" data-event-description="Meet recruiters from top companies. Bring multiple copies of your resume. Dress code: Business formal.">
-                    <span class="event-date">Jan 10</span>
-                    <p>Career Fair</p>
-                </div>
-                <div class="event-item clickable" data-event-title="Alumni Networking Night" data-event-date="January 25, 2026" data-event-time="6:00 PM - 9:00 PM" data-event-location="Conference Hall" data-event-description="Network with successful alumni. Free for all students. Registration required.">
-                    <span class="event-date">Jan 25</span>
-                    <p>Alumni Networking Night</p>
+                <div class="scrollable-content">
+                    <div class="event-item clickable" data-event-title="Tech Fest 2026" data-event-date="December 15, 2026" data-event-time="9:00 AM - 5:00 PM" data-event-location="Main Auditorium" data-event-description="Annual technology festival featuring hackathons, tech talks, and innovation showcases. Open to all students.">
+                        <div class="event-date-badge">
+                            <span class="event-day">15</span>
+                            <span class="event-month">Dec</span>
+                        </div>
+                        <div class="event-content">
+                            <h4 class="event-title">Tech Fest 2026</h4>
+                            <p class="event-details">
+                                <i class="fas fa-clock"></i>
+                                <span>9:00 AM - 5:00 PM</span>
+                            </p>
+                            <p class="event-details">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Main Auditorium</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="event-item clickable" data-event-title="Career Fair" data-event-date="January 10, 2026" data-event-time="10:00 AM - 4:00 PM" data-event-location="Sports Complex" data-event-description="Meet recruiters from top companies. Bring multiple copies of your resume. Dress code: Business formal.">
+                        <div class="event-date-badge">
+                            <span class="event-day">10</span>
+                            <span class="event-month">Jan</span>
+                        </div>
+                        <div class="event-content">
+                            <h4 class="event-title">Career Fair</h4>
+                            <p class="event-details">
+                                <i class="fas fa-clock"></i>
+                                <span>10:00 AM - 4:00 PM</span>
+                            </p>
+                            <p class="event-details">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Sports Complex</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="event-item clickable" data-event-title="Alumni Networking Night" data-event-date="January 25, 2026" data-event-time="6:00 PM - 9:00 PM" data-event-location="Conference Hall" data-event-description="Network with successful alumni. Free for all students. Registration required.">
+                        <div class="event-date-badge">
+                            <span class="event-day">25</span>
+                            <span class="event-month">Jan</span>
+                        </div>
+                        <div class="event-content">
+                            <h4 class="event-title">Alumni Networking Night</h4>
+                            <p class="event-details">
+                                <i class="fas fa-clock"></i>
+                                <span>6:00 PM - 9:00 PM</span>
+                            </p>
+                            <p class="event-details">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Conference Hall</span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="sidebar-section">
-                <h3 class="sidebar-title">
-                    <i class="fas fa-calendar-check"></i>
-                    Academic Calendar
-                </h3>
-                <button class="sidebar-link" id="viewCalendarBtn">
-                    <i class="fas fa-calendar"></i>
-                    View Full Calendar
-                </button>
+            <!-- Academic Calendar Section -->
+            <div class="sidebar-section calendar-section">
+                <div class="section-header">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Academic Calendar</span>
+                    </h3>
+                </div>
+                <div class="calendar-preview">
+                    <p class="calendar-description">View important academic dates, holidays, and exam schedules</p>
+                    <button class="action-button primary" id="viewCalendarBtn">
+                        <i class="fas fa-calendar"></i>
+                        <span>View Full Calendar</span>
+                    </button>
+                </div>
             </div>
             
-            <div class="sidebar-section">
-                <h3 class="sidebar-title">
-                    <i class="fas fa-question-circle"></i>
-                    Quick Links
-                </h3>
-                <a href="#" class="sidebar-link" id="faqsBtn">FAQs</a>
-                <a href="#" class="sidebar-link" id="courseMaterialsBtn">Course Materials</a>
-                <a href="#" class="sidebar-link" id="gradesBtn">Grades</a>
+            <!-- Quick Links Section -->
+            <div class="sidebar-section quick-links-section">
+                <div class="section-header">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-link"></i>
+                        <span>Quick Links</span>
+                    </h3>
+                </div>
+                <div class="quick-links-grid">
+                    <a href="#" class="quick-link-card" id="faqsBtn">
+                        <div class="quick-link-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <span class="quick-link-text">FAQs</span>
+                    </a>
+                    <a href="#" class="quick-link-card" id="courseMaterialsBtn">
+                        <div class="quick-link-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <span class="quick-link-text">Materials</span>
+                    </a>
+                    <a href="#" class="quick-link-card" id="gradesBtn">
+                        <div class="quick-link-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <span class="quick-link-text">Grades</span>
+                    </a>
+                    <a href="#" class="quick-link-card">
+                        <div class="quick-link-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <span class="quick-link-text">Reports</span>
+                    </a>
+                </div>
             </div>
         </aside>
 
