@@ -63,26 +63,30 @@
                     <i class="fas fa-user-circle"></i>
                     Student Dashboard
                 </h3>
-                <div class="student-info">
-                    <div class="student-avatar">
+                <div class="student-info" id="studentInfoCard">
+                    <div class="student-avatar" id="studentAvatar">
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="student-details">
                         <h4 id="studentName">John Doe</h4>
                         <p id="studentId">ID: 2026CS001</p>
-                        <span class="student-status">Active</span>
+                        <span class="student-status" id="studentStatus">Active</span>
                     </div>
                 </div>
                 <div class="dashboard-stats">
-                    <div class="stat-item">
+                    <div class="stat-item" id="coursesStatBtn" title="View your enrolled courses">
                         <i class="fas fa-book"></i>
-                        <span>6 Courses</span>
+                        <span id="coursesCount">6 Courses</span>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-item" id="gpaStatBtn" title="View your grades">
                         <i class="fas fa-chart-line"></i>
-                        <span>GPA: 3.8</span>
+                        <span id="gpaValue">GPA: 3.8</span>
                     </div>
                 </div>
+                <button class="view-profile-btn" id="viewProfileBtn">
+                    <i class="fas fa-id-card"></i>
+                    View Full Profile
+                </button>
             </div>
             
             <div class="sidebar-section">
@@ -410,6 +414,188 @@
             </div>
             <div class="announcement-modal-body">
                 <p id="announcementModalText">-</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Profile Modal -->
+    <div id="studentProfileModal" class="modal">
+        <div class="modal-content student-profile-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="student-profile-header">
+                <div class="profile-avatar-large" id="profileAvatarLarge">
+                    <i class="fas fa-user"></i>
+                    <button class="change-avatar-btn" id="changeAvatarBtn" title="Change avatar">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+                <div class="profile-header-info">
+                    <h2 id="profileName">John Doe</h2>
+                    <p id="profileStudentId">Student ID: 2026CS001</p>
+                    <span class="student-status-badge active" id="profileStatus">Active</span>
+                </div>
+            </div>
+            
+            <div class="student-profile-body">
+                <div class="profile-tabs">
+                    <button class="profile-tab active" data-tab="personal">Personal Info</button>
+                    <button class="profile-tab" data-tab="academic">Academic Info</button>
+                    <button class="profile-tab" data-tab="contact">Contact Details</button>
+                </div>
+                
+                <div class="profile-tab-content">
+                    <!-- Personal Info Tab -->
+                    <div class="tab-pane active" id="personalTab">
+                        <div class="profile-form">
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>First Name</label>
+                                    <input type="text" id="firstName" value="John" readonly>
+                                </div>
+                                <div class="form-field">
+                                    <label>Last Name</label>
+                                    <input type="text" id="lastName" value="Doe" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Date of Birth</label>
+                                    <input type="date" id="dob" value="2004-05-15" readonly>
+                                </div>
+                                <div class="form-field">
+                                    <label>Gender</label>
+                                    <select id="gender" disabled>
+                                        <option value="male" selected>Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field full">
+                                    <label>Address</label>
+                                    <input type="text" id="address" value="123 Main Street, City, State 12345" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Academic Info Tab -->
+                    <div class="tab-pane" id="academicTab">
+                        <div class="profile-form">
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Program</label>
+                                    <input type="text" id="program" value="Computer Science" readonly>
+                                </div>
+                                <div class="form-field">
+                                    <label>Degree</label>
+                                    <input type="text" id="degree" value="Bachelor of Science" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Academic Year</label>
+                                    <input type="text" id="academicYear" value="Sophomore (2nd Year)" readonly>
+                                </div>
+                                <div class="form-field">
+                                    <label>Expected Graduation</label>
+                                    <input type="text" id="graduation" value="May 2028" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Enrollment Status</label>
+                                    <input type="text" id="enrollmentStatus" value="Full-time" readonly>
+                                </div>
+                                <div class="form-field">
+                                    <label>Academic Advisor</label>
+                                    <input type="text" id="advisor" value="Dr. Sarah Johnson" readonly>
+                                </div>
+                            </div>
+                            <div class="academic-summary">
+                                <h4>Academic Summary</h4>
+                                <div class="summary-grid">
+                                    <div class="summary-card">
+                                        <i class="fas fa-book-open"></i>
+                                        <div>
+                                            <span class="summary-value" id="totalCredits">48</span>
+                                            <span class="summary-label">Credits Earned</span>
+                                        </div>
+                                    </div>
+                                    <div class="summary-card">
+                                        <i class="fas fa-chart-line"></i>
+                                        <div>
+                                            <span class="summary-value" id="cumulativeGpa">3.8</span>
+                                            <span class="summary-label">Cumulative GPA</span>
+                                        </div>
+                                    </div>
+                                    <div class="summary-card">
+                                        <i class="fas fa-trophy"></i>
+                                        <div>
+                                            <span class="summary-value" id="deansListCount">3</span>
+                                            <span class="summary-label">Dean's List</span>
+                                        </div>
+                                    </div>
+                                    <div class="summary-card">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        <div>
+                                            <span class="summary-value" id="creditsNeeded">72</span>
+                                            <span class="summary-label">Credits Needed</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Details Tab -->
+                    <div class="tab-pane" id="contactTab">
+                        <div class="profile-form">
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Email</label>
+                                    <input type="email" id="email" value="john.doe@college.edu" readonly>
+                                </div>
+                                <div class="form-field">
+                                    <label>Phone</label>
+                                    <input type="tel" id="phone" value="+1 (234) 567-8900" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>Emergency Contact Name</label>
+                                    <input type="text" id="emergencyName" value="Jane Doe" readonly>
+                                </div>
+                                <div class="form-field">
+                                    <label>Emergency Contact Phone</label>
+                                    <input type="tel" id="emergencyPhone" value="+1 (234) 567-8901" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field full">
+                                    <label>Relationship</label>
+                                    <input type="text" id="emergencyRelation" value="Mother" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="student-profile-footer">
+                <button class="profile-action-btn secondary" id="editProfileBtn">
+                    <i class="fas fa-edit"></i>
+                    Edit Profile
+                </button>
+                <button class="profile-action-btn primary" id="saveProfileBtn" style="display: none;">
+                    <i class="fas fa-save"></i>
+                    Save Changes
+                </button>
+                <button class="profile-action-btn secondary" id="cancelEditBtn" style="display: none;">
+                    <i class="fas fa-times"></i>
+                    Cancel
+                </button>
             </div>
         </div>
     </div>

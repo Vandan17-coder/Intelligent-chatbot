@@ -292,6 +292,15 @@ button {
     gap: 1rem;
     align-items: center;
     margin-bottom: 1rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    transition: var(--transition-smooth);
+}
+
+.student-info:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
 }
 
 .student-avatar {
@@ -305,6 +314,16 @@ button {
     font-size: 1.8rem;
     color: white;
     flex-shrink: 0;
+    transition: var(--transition-smooth);
+}
+
+.student-info:hover .student-avatar {
+    transform: scale(1.05);
+}
+
+.student-details {
+    flex: 1;
+    min-width: 0;
 }
 
 .student-details h4 {
@@ -333,6 +352,7 @@ button {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.75rem;
+    margin-bottom: 1rem;
 }
 
 .stat-item {
@@ -344,10 +364,38 @@ button {
     gap: 0.5rem;
     color: white;
     font-size: 0.85rem;
+    transition: var(--transition-smooth);
+}
+
+.stat-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
 }
 
 .stat-item i {
     font-size: 1.2rem;
+}
+
+.view-profile-btn {
+    width: 100%;
+    padding: 0.875rem;
+    background: white;
+    color: var(--primary-blue);
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.view-profile-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .announcement-item,
@@ -1870,6 +1918,395 @@ button {
     
     .faq-answer p {
         font-size: 0.875rem;
+    }
+}
+
+/* ============================================
+   Student Profile Modal Styles
+   ============================================ */
+.student-profile-modal-content {
+    max-width: 900px;
+    width: 95%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.student-profile-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.profile-avatar-large {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--gradient-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+    box-shadow: var(--shadow-md);
+    flex-shrink: 0;
+}
+
+.change-avatar-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: white;
+    color: var(--primary-blue);
+    border: 2px solid var(--primary-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.change-avatar-btn:hover {
+    background: var(--primary-blue);
+    color: white;
+    transform: scale(1.1);
+}
+
+.profile-header-info {
+    flex: 1;
+}
+
+.profile-header-info h2 {
+    font-size: 2rem;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
+    font-weight: 700;
+}
+
+.profile-header-info p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0 0 0.75rem 0;
+}
+
+.student-status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.student-status-badge.active {
+    background: #D1FAE5;
+    color: #065F46;
+}
+
+body.dark-mode .student-status-badge.active {
+    background: #064E3B;
+    color: #6EE7B7;
+}
+
+.student-profile-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.student-profile-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.student-profile-body::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+    border-radius: 10px;
+}
+
+.student-profile-body::-webkit-scrollbar-thumb {
+    background: var(--primary-blue);
+    border-radius: 10px;
+}
+
+.profile-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.profile-tab {
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: var(--transition-smooth);
+    position: relative;
+}
+
+.profile-tab:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.profile-tab.active {
+    color: var(--primary-blue);
+    background: var(--bg-tertiary);
+}
+
+.profile-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--primary-blue);
+    border-radius: 3px 3px 0 0;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-field.full {
+    grid-column: 1 / -1;
+}
+
+.form-field label {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+}
+
+.form-field input,
+.form-field select {
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    transition: var(--transition-smooth);
+}
+
+.form-field input:focus,
+.form-field select:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+}
+
+.student-profile-body.editing .form-field input:not([readonly]),
+.student-profile-body.editing .form-field select:not([disabled]) {
+    background: var(--bg-secondary);
+    border-color: var(--primary-blue);
+}
+
+.academic-summary {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg-tertiary);
+    border-radius: var(--border-radius);
+}
+
+.academic-summary h4 {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin: 0 0 1rem 0;
+    font-weight: 600;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.summary-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    border: 2px solid var(--border-color);
+    transition: var(--transition-smooth);
+}
+
+.summary-card:hover {
+    border-color: var(--primary-blue);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.summary-card i {
+    font-size: 1.75rem;
+    color: var(--primary-blue);
+}
+
+.summary-card > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.summary-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    line-height: 1;
+}
+
+.summary-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.student-profile-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+    border-top: 2px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.profile-action-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.profile-action-btn.primary {
+    background: var(--gradient-blue);
+    color: white;
+    border: none;
+}
+
+.profile-action-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.profile-action-btn.secondary {
+    background: var(--bg-tertiary);
+    color: var(--primary-blue);
+    border: 2px solid var(--border-color);
+}
+
+.profile-action-btn.secondary:hover {
+    border-color: var(--primary-blue);
+    background: var(--primary-blue);
+    color: white;
+}
+
+/* Responsive for Student Profile */
+@media (max-width: 768px) {
+    .student-profile-modal-content {
+        max-width: 100%;
+        width: 100%;
+        max-height: 95vh;
+        padding: 1.5rem;
+        border-radius: 0;
+    }
+    
+    .student-profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .profile-header-info h2 {
+        font-size: 1.5rem;
+    }
+    
+    .profile-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .profile-tab {
+        padding: 0.625rem 1rem;
+        font-size: 0.875rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .summary-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .student-profile-footer {
+        flex-wrap: wrap;
+    }
+    
+    .profile-action-btn {
+        flex: 1;
+        justify-content: center;
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-avatar-large {
+        width: 80px;
+        height: 80px;
+        font-size: 2.5rem;
+    }
+    
+    .change-avatar-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
+    }
+    
+    .summary-grid {
+        grid-template-columns: 1fr;
     }
 }
 

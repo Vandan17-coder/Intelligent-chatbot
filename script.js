@@ -441,6 +441,285 @@ function initAnnouncementModals() {
 }
 
 // ============================================
+// Student Dashboard Functionality
+// ============================================
+
+const studentProfile = {
+    firstName: 'John',
+    lastName: 'Doe',
+    studentId: '2026CS001',
+    email: 'john.doe@college.edu',
+    phone: '+1 (234) 567-8900',
+    dob: '2004-05-15',
+    gender: 'male',
+    address: '123 Main Street, City, State 12345',
+    program: 'Computer Science',
+    degree: 'Bachelor of Science',
+    academicYear: 'Sophomore (2nd Year)',
+    graduation: 'May 2028',
+    enrollmentStatus: 'Full-time',
+    advisor: 'Dr. Sarah Johnson',
+    status: 'Active',
+    emergencyName: 'Jane Doe',
+    emergencyPhone: '+1 (234) 567-8901',
+    emergencyRelation: 'Mother',
+    avatarIcon: 'fa-user'
+};
+
+function initStudentDashboard() {
+    const studentInfoCard = document.getElementById('studentInfoCard');
+    const viewProfileBtn = document.getElementById('viewProfileBtn');
+    const studentProfileModal = document.getElementById('studentProfileModal');
+    const coursesStatBtn = document.getElementById('coursesStatBtn');
+    const gpaStatBtn = document.getElementById('gpaStatBtn');
+    
+    // Update dashboard display
+    updateDashboardDisplay();
+    
+    // Make student info card clickable
+    studentInfoCard.style.cursor = 'pointer';
+    studentInfoCard.addEventListener('click', openStudentProfile);
+    
+    // View profile button
+    viewProfileBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openStudentProfile();
+    });
+    
+    // Stats buttons
+    coursesStatBtn.style.cursor = 'pointer';
+    coursesStatBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        document.getElementById('courseMaterialsBtn').click();
+    });
+    
+    gpaStatBtn.style.cursor = 'pointer';
+    gpaStatBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        document.getElementById('gradesBtn').click();
+    });
+    
+    // Profile tabs
+    const profileTabs = document.querySelectorAll('.profile-tab');
+    profileTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            switchProfileTab(tab.getAttribute('data-tab'));
+        });
+    });
+    
+    // Edit profile functionality
+    const editProfileBtn = document.getElementById('editProfileBtn');
+    const saveProfileBtn = document.getElementById('saveProfileBtn');
+    const cancelEditBtn = document.getElementById('cancelEditBtn');
+    
+    editProfileBtn.addEventListener('click', enableProfileEdit);
+    saveProfileBtn.addEventListener('click', saveProfileChanges);
+    cancelEditBtn.addEventListener('click', cancelProfileEdit);
+    
+    // Change avatar
+    const changeAvatarBtn = document.getElementById('changeAvatarBtn');
+    changeAvatarBtn.addEventListener('click', changeAvatar);
+}
+
+function updateDashboardDisplay() {
+    // Calculate total courses and GPA from grades data
+    const currentSemester = gradesData['spring2026'];
+    const coursesCount = currentSemester.courses.length;
+    
+    // Calculate cumulative GPA
+    let totalCredits = 0;
+    let totalPoints = 0;
+    
+    Object.values(gradesData).forEach(semester => {
+        semester.courses.forEach(course => {
+            totalCredits += course.credits;
+            totalPoints += course.credits * course.points;
+        });
+    });
+    
+    const cumulativeGpa = (totalPoints / totalCredits).toFixed(2);
+    
+    // Update dashboard
+    document.getElementById('studentName').textContent = `${studentProfile.firstName} ${studentProfile.lastName}`;
+    document.getElementById('studentId').textContent = `ID: ${studentProfile.studentId}`;
+    document.getElementById('studentStatus').textContent = studentProfile.status;
+    document.getElementById('coursesCount').textContent = `${coursesCount} Courses`;
+    document.getElementById('gpaValue').textContent = `GPA: ${cumulativeGpa}`;
+    
+    // Update GPA display in header if exists
+    const gpaDisplayValue = document.querySelector('.gpa-value');
+    if (gpaDisplayValue) {
+        gpaDisplayValue.textContent = cumulativeGpa;
+    }
+    
+    // Store for later use
+    studentProfile.totalCredits = totalCredits;
+    studentProfile.cumulativeGpa = cumulativeGpa;
+}
+
+function openStudentProfile() {
+    const studentProfileModal = document.getElementById('studentProfileModal');
+    
+    // Populate profile data
+    document.getElementById('profileName').textContent = `${studentProfile.firstName} ${studentProfile.lastName}`;
+    document.getElementById('profileStudentId').textContent = `Student ID: ${studentProfile.studentId}`;
+    document.getElementById('profileStatus').textContent = studentProfile.status;
+    
+    // Personal Info
+    document.getElementById('firstName').value = studentProfile.firstName;
+    document.getElementById('lastName').value = studentProfile.lastName;
+    document.getElementById('dob').value = studentProfile.dob;
+    document.getElementById('gender').value = studentProfile.gender;
+    document.getElementById('address').value = studentProfile.address;
+    
+    // Academic Info
+    document.getElementById('program').value = studentProfile.program;
+    document.getElementById('degree').value = studentProfile.degree;
+    document.getElementById('academicYear').value = studentProfile.academicYear;
+    document.getElementById('graduation').value = studentProfile.graduation;
+    document.getElementById('enrollmentStatus').value = studentProfile.enrollmentStatus;
+    document.getElementById('advisor').value = studentProfile.advisor;
+    
+    // Academic Summary
+    document.getElementById('totalCredits').textContent = studentProfile.totalCredits || 48;
+    document.getElementById('cumulativeGpa').textContent = studentProfile.cumulativeGpa || '3.8';
+    document.getElementById('deansListCount').textContent = '3';
+    document.getElementById('creditsNeeded').textContent = (120 - (studentProfile.totalCredits || 48));
+    
+    // Contact Details
+    document.getElementById('email').value = studentProfile.email;
+    document.getElementById('phone').value = studentProfile.phone;
+    document.getElementById('emergencyName').value = studentProfile.emergencyName;
+    document.getElementById('emergencyPhone').value = studentProfile.emergencyPhone;
+    document.getElementById('emergencyRelation').value = studentProfile.emergencyRelation;
+    
+    // Show modal
+    studentProfileModal.classList.add('active');
+    switchProfileTab('personal');
+}
+
+function switchProfileTab(tabName) {
+    // Update tab buttons
+    const tabs = document.querySelectorAll('.profile-tab');
+    tabs.forEach(tab => {
+        if (tab.getAttribute('data-tab') === tabName) {
+            tab.classList.add('active');
+        } else {
+            tab.classList.remove('active');
+        }
+    });
+    
+    // Update tab panes
+    const panes = document.querySelectorAll('.tab-pane');
+    panes.forEach(pane => {
+        pane.classList.remove('active');
+    });
+    
+    if (tabName === 'personal') {
+        document.getElementById('personalTab').classList.add('active');
+    } else if (tabName === 'academic') {
+        document.getElementById('academicTab').classList.add('active');
+    } else if (tabName === 'contact') {
+        document.getElementById('contactTab').classList.add('active');
+    }
+}
+
+function enableProfileEdit() {
+    // Enable all input fields except student ID
+    const inputs = document.querySelectorAll('.profile-form input, .profile-form select');
+    inputs.forEach(input => {
+        input.removeAttribute('readonly');
+        input.removeAttribute('disabled');
+    });
+    
+    // Show/hide buttons
+    document.getElementById('editProfileBtn').style.display = 'none';
+    document.getElementById('saveProfileBtn').style.display = 'inline-flex';
+    document.getElementById('cancelEditBtn').style.display = 'inline-flex';
+    
+    // Add edit indicator
+    const profileBody = document.querySelector('.student-profile-body');
+    profileBody.classList.add('editing');
+}
+
+function saveProfileChanges() {
+    // Get updated values
+    studentProfile.firstName = document.getElementById('firstName').value;
+    studentProfile.lastName = document.getElementById('lastName').value;
+    studentProfile.dob = document.getElementById('dob').value;
+    studentProfile.gender = document.getElementById('gender').value;
+    studentProfile.address = document.getElementById('address').value;
+    studentProfile.program = document.getElementById('program').value;
+    studentProfile.degree = document.getElementById('degree').value;
+    studentProfile.academicYear = document.getElementById('academicYear').value;
+    studentProfile.graduation = document.getElementById('graduation').value;
+    studentProfile.enrollmentStatus = document.getElementById('enrollmentStatus').value;
+    studentProfile.advisor = document.getElementById('advisor').value;
+    studentProfile.email = document.getElementById('email').value;
+    studentProfile.phone = document.getElementById('phone').value;
+    studentProfile.emergencyName = document.getElementById('emergencyName').value;
+    studentProfile.emergencyPhone = document.getElementById('emergencyPhone').value;
+    studentProfile.emergencyRelation = document.getElementById('emergencyRelation').value;
+    
+    // Update dashboard display
+    updateDashboardDisplay();
+    
+    // Update profile modal display
+    document.getElementById('profileName').textContent = `${studentProfile.firstName} ${studentProfile.lastName}`;
+    
+    // Disable editing
+    disableProfileEdit();
+    
+    // Show success message
+    alert('Profile updated successfully!');
+}
+
+function cancelProfileEdit() {
+    // Reload original values
+    openStudentProfile();
+    
+    // Disable editing
+    disableProfileEdit();
+}
+
+function disableProfileEdit() {
+    // Disable all input fields
+    const inputs = document.querySelectorAll('.profile-form input, .profile-form select');
+    inputs.forEach(input => {
+        input.setAttribute('readonly', 'readonly');
+        if (input.tagName === 'SELECT') {
+            input.setAttribute('disabled', 'disabled');
+        }
+    });
+    
+    // Show/hide buttons
+    document.getElementById('editProfileBtn').style.display = 'inline-flex';
+    document.getElementById('saveProfileBtn').style.display = 'none';
+    document.getElementById('cancelEditBtn').style.display = 'none';
+    
+    // Remove edit indicator
+    const profileBody = document.querySelector('.student-profile-body');
+    profileBody.classList.remove('editing');
+}
+
+function changeAvatar() {
+    const avatarIcons = [
+        'fa-user', 'fa-user-graduate', 'fa-user-astronaut', 'fa-user-ninja',
+        'fa-user-tie', 'fa-user-secret', 'fa-smile', 'fa-laugh',
+        'fa-grin-stars', 'fa-robot'
+    ];
+    
+    const currentIndex = avatarIcons.indexOf(studentProfile.avatarIcon);
+    const nextIndex = (currentIndex + 1) % avatarIcons.length;
+    studentProfile.avatarIcon = avatarIcons[nextIndex];
+    
+    // Update all avatar displays
+    document.querySelectorAll('.student-avatar i, .profile-avatar-large i').forEach(icon => {
+        icon.className = `fas ${studentProfile.avatarIcon}`;
+    });
+}
+
+// ============================================
 // FAQs Functionality
 // ============================================
 
@@ -1193,6 +1472,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCourseMaterials();
     initFAQs();
     initGrades();
+    initStudentDashboard();
     initContactForm();
     initNewsletterForm();
     initScrollAnimations();
