@@ -441,6 +441,489 @@ function initAnnouncementModals() {
 }
 
 // ============================================
+// FAQs Functionality
+// ============================================
+
+const faqsData = [
+    {
+        id: 1,
+        category: 'Admissions',
+        question: 'How do I apply for admission?',
+        answer: 'You can apply online through our student portal. Visit the Admissions page, create an account, and fill out the application form. Required documents include transcripts, recommendation letters, and a personal statement. The application fee is $50.'
+    },
+    {
+        id: 2,
+        category: 'Admissions',
+        question: 'What are the admission requirements?',
+        answer: 'Requirements vary by program but generally include: High school diploma or equivalent, minimum GPA of 3.0, standardized test scores (SAT/ACT), letters of recommendation, and a personal essay. Some programs may have additional requirements.'
+    },
+    {
+        id: 3,
+        category: 'Admissions',
+        question: 'When are the application deadlines?',
+        answer: 'Fall semester deadline: July 1st. Spring semester deadline: December 1st. Early decision applications are due one month earlier. We recommend applying early as spaces fill quickly.'
+    },
+    {
+        id: 4,
+        category: 'Financial',
+        question: 'What financial aid options are available?',
+        answer: 'We offer merit-based scholarships (up to 50% tuition), need-based grants, federal student loans, work-study programs, and flexible payment plans. Complete the FAFSA to be considered for federal aid. Over 60% of our students receive some form of financial assistance.'
+    },
+    {
+        id: 5,
+        category: 'Financial',
+        question: 'How much does tuition cost?',
+        answer: 'Undergraduate tuition is $8,000 per semester. Graduate tuition is $12,000 per semester. Additional fees may include technology fee ($200), student activities fee ($150), and health services fee ($100). Books and supplies average $1,000 per year.'
+    },
+    {
+        id: 6,
+        category: 'Academic',
+        question: 'How do I register for classes?',
+        answer: 'Log into the student portal during your registration period. Go to Course Registration, search for courses, and add them to your schedule. Make sure you meet all prerequisites. If a class is full, you can join the waitlist. Contact your academic advisor if you need assistance.'
+    },
+    {
+        id: 7,
+        category: 'Academic',
+        question: 'What is the grading system?',
+        answer: 'We use a standard letter grade system: A (4.0), A- (3.7), B+ (3.3), B (3.0), B- (2.7), C+ (2.3), C (2.0), C- (1.7), D+ (1.3), D (1.0), F (0.0). A minimum GPA of 2.0 is required for good academic standing.'
+    },
+    {
+        id: 8,
+        category: 'Academic',
+        question: 'Can I change my major?',
+        answer: 'Yes! Students can change their major by meeting with an academic advisor and completing a Change of Major form. This is typically done during your first two years. Some competitive programs may have additional requirements or application processes.'
+    },
+    {
+        id: 9,
+        category: 'Campus Life',
+        question: 'What housing options are available?',
+        answer: 'We offer on-campus dormitories (double and single rooms), apartment-style housing for upperclassmen, and off-campus housing listings. All freshmen are required to live on campus. Housing applications open in March for the fall semester.'
+    },
+    {
+        id: 10,
+        category: 'Campus Life',
+        question: 'What clubs and activities are available?',
+        answer: 'We have over 100 student organizations including academic clubs, sports teams, cultural organizations, service groups, and special interest clubs. Visit the Student Life office or check the student portal to browse clubs and join.'
+    },
+    {
+        id: 11,
+        category: 'Technical',
+        question: 'How do I access my student email?',
+        answer: 'Your student email is created when you\'re admitted. Access it at mail.college.edu using your student ID and password. This is your official communication channel, so check it daily for important announcements.'
+    },
+    {
+        id: 12,
+        category: 'Technical',
+        question: 'Where can I get technical support?',
+        answer: 'The IT Help Desk is located in the Library, Room 101. Hours: Monday-Friday 8am-8pm, Saturday 10am-6pm. You can also submit a ticket online at helpdesk.college.edu or call (234) 567-8901.'
+    },
+    {
+        id: 13,
+        category: 'Career',
+        question: 'Does the college help with job placement?',
+        answer: 'Yes! Our Career Services office offers resume reviews, mock interviews, job search assistance, internship programs, and career fairs. We have partnerships with over 150 companies. Schedule an appointment through the student portal.'
+    },
+    {
+        id: 14,
+        category: 'Career',
+        question: 'What is the placement rate?',
+        answer: 'Our placement rate is 92% within 6 months of graduation. The average starting salary is $65,000 per year. Top companies recruiting our graduates include Google, Microsoft, Amazon, Goldman Sachs, and many more Fortune 500 companies.'
+    },
+    {
+        id: 15,
+        category: 'General',
+        question: 'What are the library hours?',
+        answer: 'Regular hours: Monday-Thursday 7am-11pm, Friday 7am-8pm, Saturday 9am-8pm, Sunday 10am-11pm. During finals week, the library is open 24/7. Access requires your student ID.'
+    }
+];
+
+function initFAQs() {
+    const faqsBtn = document.getElementById('faqsBtn');
+    const faqsModal = document.getElementById('faqsModal');
+    const faqsList = document.getElementById('faqsList');
+    const faqSearch = document.getElementById('faqSearch');
+    
+    faqsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        renderFAQs(faqsData);
+        faqsModal.classList.add('active');
+    });
+    
+    faqSearch.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const filteredFAQs = faqsData.filter(faq => 
+            faq.question.toLowerCase().includes(searchTerm) ||
+            faq.answer.toLowerCase().includes(searchTerm) ||
+            faq.category.toLowerCase().includes(searchTerm)
+        );
+        renderFAQs(filteredFAQs);
+    });
+}
+
+function renderFAQs(faqs) {
+    const faqsList = document.getElementById('faqsList');
+    faqsList.innerHTML = '';
+    
+    if (faqs.length === 0) {
+        faqsList.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 3rem 2rem;">No FAQs found</p>';
+        return;
+    }
+    
+    // Group FAQs by category
+    const categories = [...new Set(faqs.map(faq => faq.category))];
+    
+    categories.forEach(category => {
+        const categoryFAQs = faqs.filter(faq => faq.category === category);
+        
+        const categorySection = document.createElement('div');
+        categorySection.className = 'faq-category-section';
+        
+        const categoryHeader = document.createElement('h3');
+        categoryHeader.className = 'faq-category-header';
+        categoryHeader.textContent = category;
+        categorySection.appendChild(categoryHeader);
+        
+        categoryFAQs.forEach(faq => {
+            const faqItem = document.createElement('div');
+            faqItem.className = 'faq-item';
+            
+            faqItem.innerHTML = `
+                <div class="faq-question" onclick="toggleFAQ(${faq.id})">
+                    <h4>${faq.question}</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer" id="faq-answer-${faq.id}" style="display: none;">
+                    <p>${faq.answer}</p>
+                </div>
+            `;
+            
+            categorySection.appendChild(faqItem);
+        });
+        
+        faqsList.appendChild(categorySection);
+    });
+}
+
+function toggleFAQ(faqId) {
+    const answer = document.getElementById(`faq-answer-${faqId}`);
+    const question = answer.previousElementSibling;
+    const icon = question.querySelector('i');
+    
+    if (answer.style.display === 'none') {
+        answer.style.display = 'block';
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-up');
+    } else {
+        answer.style.display = 'none';
+        icon.classList.remove('fa-chevron-up');
+        icon.classList.add('fa-chevron-down');
+    }
+}
+
+// ============================================
+// Grades Functionality
+// ============================================
+
+const gradesData = {
+    spring2026: {
+        semester: 'Spring 2026',
+        courses: [
+            { code: 'CS101', name: 'Introduction to Computer Science', credits: 4, grade: 'A', points: 4.0, instructor: 'Dr. Sarah Johnson' },
+            { code: 'MATH201', name: 'Calculus II', credits: 4, grade: 'A-', points: 3.7, instructor: 'Prof. Michael Chen' },
+            { code: 'ENG102', name: 'English Composition', credits: 3, grade: 'B+', points: 3.3, instructor: 'Dr. Emily Roberts' },
+            { code: 'PHYS201', name: 'Physics II', credits: 4, grade: 'A', points: 4.0, instructor: 'Dr. James Wilson' },
+            { code: 'BUS301', name: 'Business Management', credits: 3, grade: 'B', points: 3.0, instructor: 'Prof. Lisa Anderson' },
+            { code: 'CHEM101', name: 'General Chemistry', credits: 4, grade: 'A-', points: 3.7, instructor: 'Dr. Robert Martinez' }
+        ]
+    },
+    fall2025: {
+        semester: 'Fall 2025',
+        courses: [
+            { code: 'CS100', name: 'Programming Fundamentals', credits: 3, grade: 'A', points: 4.0, instructor: 'Dr. Sarah Johnson' },
+            { code: 'MATH101', name: 'Calculus I', credits: 4, grade: 'B+', points: 3.3, instructor: 'Prof. Michael Chen' },
+            { code: 'ENG101', name: 'Writing & Rhetoric', credits: 3, grade: 'A-', points: 3.7, instructor: 'Dr. Emily Roberts' },
+            { code: 'PHYS101', name: 'Physics I', credits: 4, grade: 'B+', points: 3.3, instructor: 'Dr. James Wilson' },
+            { code: 'HIST201', name: 'World History', credits: 3, grade: 'A', points: 4.0, instructor: 'Prof. David Lee' }
+        ]
+    },
+    spring2025: {
+        semester: 'Spring 2025',
+        courses: [
+            { code: 'CS099', name: 'Intro to Computing', credits: 3, grade: 'A', points: 4.0, instructor: 'Dr. Sarah Johnson' },
+            { code: 'MATH099', name: 'Pre-Calculus', credits: 3, grade: 'B+', points: 3.3, instructor: 'Prof. Michael Chen' },
+            { code: 'BIO101', name: 'Biology I', credits: 4, grade: 'A-', points: 3.7, instructor: 'Dr. Susan Park' },
+            { code: 'PSY101', name: 'Introduction to Psychology', credits: 3, grade: 'A', points: 4.0, instructor: 'Dr. Karen White' },
+            { code: 'ART101', name: 'Art Appreciation', credits: 2, grade: 'A', points: 4.0, instructor: 'Prof. Maria Garcia' }
+        ]
+    }
+};
+
+function initGrades() {
+    const gradesBtn = document.getElementById('gradesBtn');
+    const gradesModal = document.getElementById('gradesModal');
+    const semesterSelect = document.getElementById('semesterSelect');
+    
+    gradesBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        renderGrades('spring2026');
+        gradesModal.classList.add('active');
+    });
+    
+    semesterSelect.addEventListener('change', (e) => {
+        renderGrades(e.target.value);
+    });
+}
+
+function renderGrades(semesterId) {
+    const container = document.getElementById('gradesTableContainer');
+    const semesterData = gradesData[semesterId];
+    
+    if (!semesterData) {
+        container.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 2rem;">No grades available</p>';
+        return;
+    }
+    
+    // Calculate semester GPA
+    const totalCredits = semesterData.courses.reduce((sum, course) => sum + course.credits, 0);
+    const totalPoints = semesterData.courses.reduce((sum, course) => sum + (course.credits * course.points), 0);
+    const semesterGPA = (totalPoints / totalCredits).toFixed(2);
+    
+    container.innerHTML = `
+        <div class="grades-summary">
+            <div class="summary-item">
+                <span class="summary-label">Total Credits:</span>
+                <span class="summary-value">${totalCredits}</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Semester GPA:</span>
+                <span class="summary-value highlight">${semesterGPA}</span>
+            </div>
+        </div>
+        <table class="grades-table">
+            <thead>
+                <tr>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Instructor</th>
+                    <th>Credits</th>
+                    <th>Grade</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${semesterData.courses.map(course => `
+                    <tr>
+                        <td><strong>${course.code}</strong></td>
+                        <td>${course.name}</td>
+                        <td>${course.instructor}</td>
+                        <td>${course.credits}</td>
+                        <td><span class="grade-badge grade-${course.grade.replace(/[+-]/g, '')}">${course.grade}</span></td>
+                        <td>${course.points.toFixed(1)}</td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+}
+
+// ============================================
+// Course Materials Functionality
+// ============================================
+
+// Sample course materials data
+const courseMaterials = [
+    {
+        id: 1,
+        code: 'CS101',
+        name: 'Introduction to Computer Science',
+        instructor: 'Dr. Sarah Johnson',
+        semester: 'Spring 2026',
+        materials: [
+            { name: 'Syllabus', type: 'PDF', size: '245 KB', url: '#' },
+            { name: 'Lecture 1 - Introduction', type: 'PDF', size: '1.2 MB', url: '#' },
+            { name: 'Lecture 2 - Data Structures', type: 'PDF', size: '980 KB', url: '#' },
+            { name: 'Lab Assignment 1', type: 'PDF', size: '450 KB', url: '#' },
+            { name: 'Programming Project', type: 'ZIP', size: '3.5 MB', url: '#' }
+        ]
+    },
+    {
+        id: 2,
+        code: 'MATH201',
+        name: 'Calculus II',
+        instructor: 'Prof. Michael Chen',
+        semester: 'Spring 2026',
+        materials: [
+            { name: 'Course Syllabus', type: 'PDF', size: '180 KB', url: '#' },
+            { name: 'Chapter 1 - Limits', type: 'PDF', size: '850 KB', url: '#' },
+            { name: 'Chapter 2 - Derivatives', type: 'PDF', size: '920 KB', url: '#' },
+            { name: 'Practice Problems Set 1', type: 'PDF', size: '540 KB', url: '#' },
+            { name: 'Solutions Manual', type: 'PDF', size: '2.1 MB', url: '#' }
+        ]
+    },
+    {
+        id: 3,
+        code: 'ENG102',
+        name: 'English Composition',
+        instructor: 'Dr. Emily Roberts',
+        semester: 'Spring 2026',
+        materials: [
+            { name: 'Course Overview', type: 'PDF', size: '320 KB', url: '#' },
+            { name: 'Essay Guidelines', type: 'PDF', size: '410 KB', url: '#' },
+            { name: 'Reading List', type: 'PDF', size: '280 KB', url: '#' },
+            { name: 'Sample Essays', type: 'PDF', size: '1.5 MB', url: '#' }
+        ]
+    },
+    {
+        id: 4,
+        code: 'PHYS201',
+        name: 'Physics II - Electromagnetism',
+        instructor: 'Dr. James Wilson',
+        semester: 'Spring 2026',
+        materials: [
+            { name: 'Syllabus', type: 'PDF', size: '290 KB', url: '#' },
+            { name: 'Lecture Notes - Week 1', type: 'PDF', size: '1.1 MB', url: '#' },
+            { name: 'Lab Manual', type: 'PDF', size: '3.2 MB', url: '#' },
+            { name: 'Problem Sets', type: 'PDF', size: '760 KB', url: '#' },
+            { name: 'Simulation Software', type: 'ZIP', size: '5.8 MB', url: '#' }
+        ]
+    },
+    {
+        id: 5,
+        code: 'BUS301',
+        name: 'Business Management',
+        instructor: 'Prof. Lisa Anderson',
+        semester: 'Spring 2026',
+        materials: [
+            { name: 'Course Guide', type: 'PDF', size: '380 KB', url: '#' },
+            { name: 'Case Study 1', type: 'PDF', size: '620 KB', url: '#' },
+            { name: 'Textbook Chapter 1', type: 'PDF', size: '1.8 MB', url: '#' },
+            { name: 'Group Project Guidelines', type: 'PDF', size: '450 KB', url: '#' }
+        ]
+    },
+    {
+        id: 6,
+        code: 'CHEM101',
+        name: 'General Chemistry',
+        instructor: 'Dr. Robert Martinez',
+        semester: 'Spring 2026',
+        materials: [
+            { name: 'Syllabus', type: 'PDF', size: '310 KB', url: '#' },
+            { name: 'Periodic Table Reference', type: 'PDF', size: '540 KB', url: '#' },
+            { name: 'Lab Safety Procedures', type: 'PDF', size: '720 KB', url: '#' },
+            { name: 'Lecture 1 - Atomic Structure', type: 'PDF', size: '1.3 MB', url: '#' },
+            { name: 'Practice Quizzes', type: 'PDF', size: '890 KB', url: '#' }
+        ]
+    }
+];
+
+function initCourseMaterials() {
+    const courseMaterialsBtn = document.getElementById('courseMaterialsBtn');
+    const courseMaterialsModal = document.getElementById('courseMaterialsModal');
+    const coursesList = document.getElementById('coursesList');
+    const courseSearch = document.getElementById('courseSearch');
+    
+    // Open modal
+    courseMaterialsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        renderCourses(courseMaterials);
+        courseMaterialsModal.classList.add('active');
+    });
+    
+    // Search functionality
+    courseSearch.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const filteredCourses = courseMaterials.filter(course => 
+            course.code.toLowerCase().includes(searchTerm) ||
+            course.name.toLowerCase().includes(searchTerm) ||
+            course.instructor.toLowerCase().includes(searchTerm)
+        );
+        renderCourses(filteredCourses);
+    });
+}
+
+function renderCourses(courses) {
+    const coursesList = document.getElementById('coursesList');
+    coursesList.innerHTML = '';
+    
+    if (courses.length === 0) {
+        coursesList.innerHTML = '<p style=\"text-align: center; color: var(--text-secondary); padding: 2rem;\">No courses found</p>';
+        return;
+    }
+    
+    courses.forEach(course => {
+        const courseCard = document.createElement('div');
+        courseCard.className = 'course-card';
+        
+        courseCard.innerHTML = `
+            <div class=\"course-card-header\">
+                <div class=\"course-info\">
+                    <h3>${course.code}: ${course.name}</h3>
+                    <p class=\"course-instructor\"><i class=\"fas fa-user-tie\"></i> ${course.instructor}</p>
+                    <p class=\"course-semester\"><i class=\"fas fa-calendar\"></i> ${course.semester}</p>
+                </div>
+                <button class=\"toggle-materials-btn\" onclick=\"toggleCourseMaterials(${course.id})\">
+                    <i class=\"fas fa-chevron-down\"></i>
+                </button>
+            </div>
+            <div class=\"course-materials-list\" id=\"materials-${course.id}\" style=\"display: none;\">
+                ${course.materials.map(material => `
+                    <div class=\"material-item\">
+                        <div class=\"material-info\">
+                            <i class=\"fas fa-file-${getMaterialIcon(material.type)}\"></i>
+                            <div class=\"material-details\">
+                                <span class=\"material-name\">${material.name}</span>
+                                <span class=\"material-meta\">${material.type} • ${material.size}</span>
+                            </div>
+                        </div>
+                        <button class=\"download-btn\" onclick=\"downloadMaterial('${material.name}', '${course.code}')\">
+                            <i class=\"fas fa-download\"></i>
+                            Download
+                        </button>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        
+        coursesList.appendChild(courseCard);
+    });
+}
+
+function toggleCourseMaterials(courseId) {
+    const materialsList = document.getElementById(`materials-${courseId}`);
+    const toggleBtn = event.target.closest('.toggle-materials-btn');
+    const icon = toggleBtn.querySelector('i');
+    
+    if (materialsList.style.display === 'none') {
+        materialsList.style.display = 'block';
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-up');
+    } else {
+        materialsList.style.display = 'none';
+        icon.classList.remove('fa-chevron-up');
+        icon.classList.add('fa-chevron-down');
+    }
+}
+
+function getMaterialIcon(type) {
+    const icons = {
+        'PDF': 'pdf',
+        'ZIP': 'archive',
+        'DOC': 'word',
+        'DOCX': 'word',
+        'PPT': 'powerpoint',
+        'PPTX': 'powerpoint',
+        'XLS': 'excel',
+        'XLSX': 'excel'
+    };
+    return icons[type] || 'alt';
+}
+
+function downloadMaterial(materialName, courseCode) {
+    // Simulate download
+    alert(`Downloading: ${materialName} from ${courseCode}\n\nIn a real application, this would download the file.`);
+}
+
+// ============================================
 // Academic Calendar Functionality
 // ============================================
 let currentMonth = new Date().getMonth();
@@ -707,6 +1190,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initEventModals();
     initAnnouncementModals();
     initCalendar();
+    initCourseMaterials();
+    initFAQs();
+    initGrades();
     initContactForm();
     initNewsletterForm();
     initScrollAnimations();
@@ -769,5 +1255,8 @@ window.chatApp = {
     addMessage,
     getBotResponse,
     showTypingIndicator,
-    hideTypingIndicator
+    hideTypingIndicator,
+    toggleFAQ,
+    toggleCourseMaterials
 };
+

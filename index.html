@@ -137,9 +137,9 @@
                     <i class="fas fa-question-circle"></i>
                     Quick Links
                 </h3>
-                <a href="#" class="sidebar-link">FAQs</a>
-                <a href="#" class="sidebar-link">Course Materials</a>
-                <a href="#" class="sidebar-link">Grades</a>
+                <a href="#" class="sidebar-link" id="faqsBtn">FAQs</a>
+                <a href="#" class="sidebar-link" id="courseMaterialsBtn">Course Materials</a>
+                <a href="#" class="sidebar-link" id="gradesBtn">Grades</a>
             </div>
         </aside>
 
@@ -410,6 +410,74 @@
             </div>
             <div class="announcement-modal-body">
                 <p id="announcementModalText">-</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQs Modal -->
+    <div id="faqsModal" class="modal">
+        <div class="modal-content faqs-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="faqs-header">
+                <i class="fas fa-question-circle"></i>
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            <div class="faqs-body">
+                <div class="faq-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="faqSearch" placeholder="Search FAQs...">
+                </div>
+                <div class="faqs-list" id="faqsList">
+                    <!-- FAQs will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grades Modal -->
+    <div id="gradesModal" class="modal">
+        <div class="modal-content grades-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="grades-header">
+                <i class="fas fa-chart-line"></i>
+                <h2>My Grades</h2>
+                <div class="gpa-display">
+                    <span class="gpa-label">Current GPA:</span>
+                    <span class="gpa-value">3.8</span>
+                </div>
+            </div>
+            <div class="grades-body">
+                <div class="semester-selector">
+                    <label for="semesterSelect">Select Semester:</label>
+                    <select id="semesterSelect">
+                        <option value="spring2026" selected>Spring 2026</option>
+                        <option value="fall2025">Fall 2025</option>
+                        <option value="spring2025">Spring 2025</option>
+                    </select>
+                </div>
+                <div class="grades-table-container" id="gradesTableContainer">
+                    <!-- Grades table will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Materials Modal -->
+    <div id="courseMaterialsModal" class="modal">
+        <div class="modal-content course-materials-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="course-materials-header">
+                <i class="fas fa-book-open"></i>
+                <h2>Course Materials</h2>
+            </div>
+            <div class="course-materials-body">
+                <div class="course-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="courseSearch" placeholder="Search courses...">
+                </div>
+                <div class="courses-list" id="coursesList">
+                    <!-- Courses will be populated by JavaScript -->
+                </div>
             </div>
         </div>
     </div>
