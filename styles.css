@@ -1785,6 +1785,39 @@ button {
     box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
 }
 
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-wrapper input {
+    width: 100%;
+    padding-right: 3rem;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-smooth);
+}
+
+.password-toggle:hover {
+    color: var(--primary-blue);
+}
+
+.password-toggle i {
+    font-size: 1rem;
+}
+
 .form-options {
     display: flex;
     justify-content: space-between;

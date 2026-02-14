@@ -325,12 +325,32 @@ function initSmoothScroll() {
 function initLoginModal() {
     const loginBtn = document.querySelector('.login-btn');
     const loginModal = document.getElementById('loginModal');
+    const signupModal = document.getElementById('signupModal');
     const closeModals = document.querySelectorAll('.close-modal');
     const loginForm = document.querySelector('.login-form');
+    const signupForm = document.querySelector('.signup-form');
+    const showSignupLink = document.getElementById('showSignupLink');
+    const showLoginLink = document.getElementById('showLoginLink');
     
-    // Open modal
+    // Open login modal
     loginBtn.addEventListener('click', () => {
         loginModal.classList.add('active');
+    });
+    
+    // Switch to signup modal
+    showSignupLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginModal.classList.remove('active');
+        signupModal.classList.add('active');
+        loginForm.reset();
+    });
+    
+    // Switch to login modal
+    showLoginLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        signupModal.classList.remove('active');
+        loginModal.classList.add('active');
+        signupForm.reset();
     });
     
     // Close all modals on X click
@@ -358,22 +378,177 @@ function initLoginModal() {
         }
     });
     
+    // Handle signup form submission
+    signupForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const firstName = document.getElementById('signupFirstName').value.trim();
+        const lastName = document.getElementById('signupLastName').value.trim();
+        const studentId = document.getElementById('signupStudentId').value.trim();
+        const email = document.getElementById('signupEmail').value.trim();
+        const password = document.getElementById('signupPassword').value;
+        const confirmPassword = document.getElementById('signupConfirmPassword').value;
+        
+        // Validate passwords match
+        if (password !== confirmPassword) {
+            alert('Passwords do not match! Please try again.');
+            return;
+        }
+        
+        // Get existing users from localStorage
+        let users = JSON.parse(localStorage.getItem('users')) || {};
+        
+        // Check if user already exists
+        if (users[studentId]) {
+            alert('This Student ID is already registered! Please login instead.');
+            return;
+        }
+        
+        // Create new user
+        users[studentId] = {
+            firstName: firstName,
+            lastName: lastName,
+            studentId: studentId,
+            email: email,
+            password: password, // In production, this should be hashed
+            registeredDate: new Date().toISOString(),
+            status: 'Active',
+            phone: '',
+            dob: '',
+            gender: '',
+            address: '',
+            program: 'Computer Science',
+            degree: 'Bachelor of Science',
+            academicYear: 'Freshman (1st Year)',
+            graduation: 'May 2029',
+            enrollmentStatus: 'Full-time',
+            advisor: 'Dr. Sarah Johnson',
+            emergencyName: '',
+            emergencyPhone: '',
+            emergencyRelation: '',
+            avatarIcon: 'fa-user'
+        };
+        
+        // Save to localStorage
+        localStorage.setItem('users', JSON.stringify(users));
+        
+        alert(`Registration successful! Welcome ${firstName}! You can now login with your Student ID.`);
+        signupModal.classList.remove('active');
+        signupForm.reset();
+        loginModal.classList.add('active');
+    });
+    
     // Handle login form submission
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const studentId = document.getElementById('loginStudentId').value;
+        const studentId = document.getElementById('loginStudentId').value.trim();
         const password = document.getElementById('password').value;
         
-        // Simulate login (replace with actual authentication)
-        if (studentId && password) {
-            // Update student info in dashboard
-            document.getElementById('studentName').textContent = 'John Doe';
-            document.getElementById('studentId').textContent = `ID: ${studentId}`;
-            
-            alert(`Welcome back, ${studentId}! Login successful.`);
-            loginModal.classList.remove('active');
-            loginForm.reset();
+        // Get users from localStorage
+        let users = JSON.parse(localStorage.getItem('users')) || {};
+        
+        // Validate credentials
+        if (!users[studentId]) {
+            alert('Student ID not found! Please check your ID or sign up.');
+            return;
         }
+        
+        if (users[studentId].password !== password) {
+            alert('Incorrect password! Please try again.');
+            return;
+        }
+        
+        // Login successful - update current user in localStorage
+        const currentUser = users[studentId];
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        
+        // Update student info in dashboard
+        updateStudentDashboard(currentUser);
+        
+        alert(`Welcome back, ${currentUser.firstName}! Login successful.`);
+        loginModal.classList.remove('active');
+        loginForm.reset();
+    });
+    
+    // Check if user is already logged in
+    checkCurrentUser();
+}
+
+// Update student dashboard with user data
+function updateStudentDashboard(user) {
+    document.getElementById('studentName').textContent = `${user.firstName} ${user.lastName}`;
+    document.getElementById('studentId').textContent = `ID: ${user.studentId}`;
+    document.getElementById('studentStatus').textContent = user.status;
+    
+    // Update global studentProfile object
+    Object.assign(studentProfile, user);
+}
+
+// Check if there's a current logged-in user
+function checkCurrentUser() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    
+    if (currentUser) {
+        updateStudentDashboard(currentUser);
+        // Show logout button, hide login button
+        if (loginBtn) loginBtn.style.display = 'none';
+        if (logoutBtn) {
+            logoutBtn.style.display = 'flex';
+            logoutBtn.addEventListener('click', handleLogout);
+        }
+    } else {
+        // Show login button, hide logout button
+        if (loginBtn) loginBtn.style.display = 'flex';
+        if (logoutBtn) logoutBtn.style.display = 'none';
+    }
+}
+
+// Handle logout
+function handleLogout() {
+    if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('currentUser');
+        
+        // Reset to default student info
+        document.getElementById('studentName').textContent = 'Guest User';
+        document.getElementById('studentId').textContent = 'ID: ---';
+        document.getElementById('studentStatus').textContent = 'Not Logged In';
+        
+        // Show login button, hide logout button
+        const loginBtn = document.getElementById('loginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (loginBtn) loginBtn.style.display = 'flex';
+        if (logoutBtn) logoutBtn.style.display = 'none';
+        
+        alert('You have been logged out successfully.');
+    }
+}
+
+// ============================================
+// Password Toggle Functionality
+// ============================================
+function initPasswordToggle() {
+    const passwordToggles = document.querySelectorAll('.password-toggle');
+    
+    passwordToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            const targetId = toggle.getAttribute('data-target');
+            const passwordInput = document.getElementById(targetId);
+            const icon = toggle.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+                toggle.setAttribute('aria-label', 'Hide password');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+                toggle.setAttribute('aria-label', 'Show password');
+            }
+        });
     });
 }
 
@@ -1466,6 +1641,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initSmoothScroll();
     initLoginModal();
+    initPasswordToggle();
     initEventModals();
     initAnnouncementModals();
     initCalendar();
