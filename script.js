@@ -1603,20 +1603,41 @@ function initNewsletterForm() {
 function initScrollAnimations() {
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        rootMargin: '0px 0px -100px 0px'
     };
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('fade-in');
+                // Add animation class based on position
+                const rect = entry.target.getBoundingClientRect();
+                if (rect.left < window.innerWidth / 2) {
+                    entry.target.style.animation = 'fadeInLeft 0.6s ease-out forwards';
+                } else {
+                    entry.target.style.animation = 'fadeInRight 0.6s ease-out forwards';
+                }
             }
         });
     }, observerOptions);
     
     // Observe elements that should animate
-    const animateElements = document.querySelectorAll('.sidebar-section, .footer-section');
-    animateElements.forEach(el => observer.observe(el));
+    const animateElements = document.querySelectorAll('.sidebar-section, .footer-section, .department-card, .team-member');
+    animateElements.forEach((el, index) => {
+        el.style.opacity = '0';
+        observer.observe(el);
+    });
+    
+    // Animate on scroll for specific sections
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallaxElements = document.querySelectorAll('.welcome-section');
+        
+        parallaxElements.forEach(el => {
+            const speed = 0.5;
+            el.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+    });
 }
 
 // ============================================
@@ -1653,11 +1674,125 @@ document.addEventListener('DOMContentLoaded', () => {
     initNewsletterForm();
     initScrollAnimations();
     initAutoResizeInput();
+    initEnhancedAnimations();
     
     // Add welcome message to console
     console.log('%c🤖 AI Campus Assistant', 'font-size: 20px; color: #1E3A8A; font-weight: bold;');
     console.log('%cWelcome to the Intelligent College Chatbot!', 'font-size: 14px; color: #2563EB;');
 });
+
+// ============================================
+// Enhanced Animation Features
+// ============================================
+function initEnhancedAnimations() {
+    // Add staggered animation to cards on page load
+    const cards = document.querySelectorAll('.event-item, .announcement-item, .sidebar-section');
+    cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
+    
+    // Add hover sound effect simulation (visual feedback)
+    const interactiveElements = document.querySelectorAll('button, .clickable, a');
+    interactiveElements.forEach(element => {
+        element.addEventListener('mouseenter', function() {
+            this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        });
+    });
+    
+    // Add click ripple effect to all buttons
+    const buttons = document.querySelectorAll('button, .btn');
+    buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple-effect');
+            
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
+    
+    // Smooth appearance for modal windows
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+        const originalDisplay = modal.style.display;
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+    });
+    
+    // Add floating animation to icons
+    const icons = document.querySelectorAll('.sidebar-section .fa, .event-icon, .stat-icon i');
+    icons.forEach((icon, index) => {
+        icon.style.animation = `float 3s ease-in-out ${index * 0.2}s infinite`;
+    });
+    
+    // Parallax effect for header
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const header = document.querySelector('.header');
+        if (header) {
+            header.style.transform = `translateY(${scrolled * 0.5}px)`;
+            header.style.opacity = Math.max(0.5, 1 - scrolled / 500);
+        }
+    });
+    
+    // Add smooth transitions for theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            document.body.style.transition = 'all 0.5s ease';
+        });
+    }
+}
+
+// Add floating animation keyframes via JavaScript
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+    
+    .ripple-effect {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.6);
+        transform: scale(0);
+        animation: ripple 0.6s ease-out;
+        pointer-events: none;
+    }
+    
+    @keyframes ripple {
+        to {
+            transform: scale(2);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
 
 // ============================================
 // Utility Functions
