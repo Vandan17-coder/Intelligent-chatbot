@@ -370,37 +370,729 @@
     <!-- Departments Section -->
     <section id="departments" class="content-section">
         <div class="section-container">
-            <h2 class="section-title">Our Departments</h2>
+            <div class="departments-header">
+                <div>
+                    <h2 class="section-title">Our Departments</h2>
+                    <p class="section-subtitle">Explore comprehensive information about our academic departments</p>
+                </div>
+                <div class="department-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="departmentSearch" placeholder="Search departments...">
+                    </div>
+                    <select id="departmentFilter" class="filter-select">
+                        <option value="all">All Departments</option>
+                        <option value="technology">Technology</option>
+                        <option value="engineering">Engineering</option>
+                        <option value="business">Business</option>
+                        <option value="science">Science</option>
+                        <option value="health">Healthcare</option>
+                        <option value="arts">Arts & Humanities</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="departments-grid">
-                <div class="department-card">
-                    <i class="fas fa-laptop-code"></i>
-                    <h3>Computer Science</h3>
-                    <p>AI, Machine Learning, Software Engineering, Cybersecurity</p>
+                <!-- Computer Science Department -->
+                <div class="department-card-enhanced" data-category="technology">
+                    <div class="department-card-header">
+                        <div class="department-icon-wrapper">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="department-title-section">
+                            <h3>Computer Science & IT</h3>
+                            <span class="department-badge">STEM</span>
+                        </div>
+                    </div>
+                    
+                    <div class="department-card-body">
+                        <p class="department-description">Leading-edge programs in AI, Machine Learning, Software Engineering, and Cybersecurity with state-of-the-art labs and industry partnerships.</p>
+                        
+                        <div class="department-stats">
+                            <div class="stat-box">
+                                <i class="fas fa-users"></i>
+                                <div>
+                                    <span class="stat-number">1,240</span>
+                                    <span class="stat-label">Students</span>
+                                </div>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <div>
+                                    <span class="stat-number">52</span>
+                                    <span class="stat-label">Faculty</span>
+                                </div>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-book"></i>
+                                <div>
+                                    <span class="stat-number">18</span>
+                                    <span class="stat-label">Programs</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="department-details">
+                            <div class="detail-section">
+                                <h4><i class="fas fa-graduation-cap"></i> Key Programs</h4>
+                                <ul>
+                                    <li>B.Sc. Computer Science</li>
+                                    <li>M.Sc. Artificial Intelligence</li>
+                                    <li>M.Sc. Data Science</li>
+                                    <li>Ph.D. Computer Engineering</li>
+                                </ul>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-microscope"></i> Research Areas</h4>
+                                <ul>
+                                    <li>Machine Learning & AI</li>
+                                    <li>Cybersecurity</li>
+                                    <li>Cloud Computing</li>
+                                    <li>Quantum Computing</li>
+                                </ul>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-user-tie"></i> Department Head</h4>
+                                <div class="faculty-info">
+                                    <strong>Dr. Michael Chen</strong>
+                                    <p>Ph.D. MIT | 15 years experience</p>
+                                    <p><i class="fas fa-envelope"></i> m.chen@college.edu</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-award"></i> Accreditations</h4>
+                                <div class="accreditation-badges">
+                                    <span class="accred-badge">ABET</span>
+                                    <span class="accred-badge">ACM</span>
+                                    <span class="accred-badge">IEEE</span>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-download"></i> Department Resources</h4>
+                                <div class="resources-list">
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Department Brochure...'); return false;">
+                                        <i class="fas fa-file-pdf"></i>
+                                        <span>Department Brochure (PDF)</span>
+                                    </a>
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Course Syllabus...'); return false;">
+                                        <i class="fas fa-book"></i>
+                                        <span>Course Syllabus 2026</span>
+                                    </a>
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Admission Guide...'); return false;">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        <span>Admission Requirements</span>
+                                    </a>
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Faculty Directory...'); return false;">
+                                        <i class="fas fa-users"></i>
+                                        <span>Faculty Directory</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-briefcase"></i> Career Outcomes</h4>
+                                <p class="career-stat">95% placement rate with average salary of $85,000</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="department-card-footer">
+                        <button class="dept-action-btn primary" onclick="window.location.href='#contact'">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </button>
+                        <button class="dept-action-btn secondary expand-btn">
+                            <i class="fas fa-chevron-down"></i> View Details
+                        </button>
+                    </div>
                 </div>
-                <div class="department-card">
-                    <i class="fas fa-calculator"></i>
-                    <h3>Engineering</h3>
-                    <p>Mechanical, Electrical, Civil, Chemical Engineering</p>
+
+                <!-- Engineering Department -->
+                <div class="department-card-enhanced" data-category="engineering">
+                    <div class="department-card-header">
+                        <div class="department-icon-wrapper">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <div class="department-title-section">
+                            <h3>Engineering</h3>
+                            <span class="department-badge">STEM</span>
+                        </div>
+                    </div>
+                    
+                    <div class="department-card-body">
+                        <p class="department-description">Comprehensive engineering programs covering Mechanical, Electrical, Civil, and Chemical Engineering with cutting-edge research facilities.</p>
+                        
+                        <div class="department-stats">
+                            <div class="stat-box">
+                                <i class="fas fa-users"></i>
+                                <div>
+                                    <span class="stat-number">2,150</span>
+                                    <span class="stat-label">Students</span>
+                                </div>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <div>
+                                    <span class="stat-number">85</span>
+                                    <span class="stat-label">Faculty</span>
+                                </div>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-book"></i>
+                                <div>
+                                    <span class="stat-number">24</span>
+                                    <span class="stat-label">Programs</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="department-details">
+                            <div class="detail-section">
+                                <h4><i class="fas fa-graduation-cap"></i> Key Programs</h4>
+                                <ul>
+                                    <li>B.Tech. Mechanical Engineering</li>
+                                    <li>B.Tech. Electrical Engineering</li>
+                                    <li>M.Tech. Civil Engineering</li>
+                                    <li>Ph.D. Chemical Engineering</li>
+                                </ul>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-microscope"></i> Research Areas</h4>
+                                <ul>
+                                    <li>Renewable Energy</li>
+                                    <li>Robotics & Automation</li>
+                                    <li>Smart Infrastructure</li>
+                                    <li>Advanced Materials</li>
+                                </ul>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-user-tie"></i> Department Head</h4>
+                                <div class="faculty-info">
+                                    <strong>Dr. Sarah Williams</strong>
+                                    <p>Ph.D. Stanford | 20 years experience</p>
+                                    <p><i class="fas fa-envelope"></i> s.williams@college.edu</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-award"></i> Accreditations</h4>
+                                <div class="accreditation-badges">
+                                    <span class="accred-badge">ABET</span>
+                                    <span class="accred-badge">ASME</span>
+                                    <span class="accred-badge">IEEE</span>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-download"></i> Department Resources</h4>
+                                <div class="resources-list">
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Department Brochure...'); return false;">
+                                        <i class="fas fa-file-pdf"></i>
+                                        <span>Department Brochure (PDF)</span>
+                                    </a>
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Lab Manual...'); return false;">
+                                        <i class="fas fa-flask"></i>
+                                        <span>Engineering Lab Manual</span>
+                                    </a>
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Project Guidelines...'); return false;">
+                                        <i class="fas fa-tools"></i>
+                                        <span>Capstone Project Guidelines</span>
+                                    </a>
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Faculty Profiles...'); return false;">
+                                        <i class="fas fa-id-card"></i>
+                                        <span>Faculty Research Profiles</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-briefcase"></i> Career Outcomes</h4>
+                                <p class="career-stat">92% placement rate with average salary of $78,000</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="department-card-footer">
+                        <button class="dept-action-btn primary" onclick="window.location.href='#contact'">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </button>
+                        <button class="dept-action-btn secondary expand-btn">
+                            <i class="fas fa-chevron-down"></i> View Details
+                        </button>
+                    </div>
                 </div>
-                <div class="department-card">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Business Administration</h3>
-                    <p>MBA, Finance, Marketing, International Business</p>
+
+                <!-- Business Administration Department -->
+                <div class="department-card-enhanced" data-category="business">
+                    <div class="department-card-header">
+                        <div class="department-icon-wrapper">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="department-title-section">
+                            <h3>Business Administration</h3>
+                            <span class="department-badge">Business</span>
+                        </div>
+                    </div>
+                    
+                    <div class="department-card-body">
+                        <p class="department-description">World-class MBA programs, Finance, Marketing, and International Business with strong corporate connections and entrepreneurship focus.</p>
+                        
+                        <div class="department-stats">
+                            <div class="stat-box">
+                                <i class="fas fa-users"></i>
+                                <div>
+                                    <span class="stat-number">1,680</span>
+                                    <span class="stat-label">Students</span>
+                                </div>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <div>
+                                    <span class="stat-number">62</span>
+                                    <span class="stat-label">Faculty</span>
+                                </div>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-book"></i>
+                                <div>
+                                    <span class="stat-number">16</span>
+                                    <span class="stat-label">Programs</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="department-details">
+                            <div class="detail-section">
+                                <h4><i class="fas fa-graduation-cap"></i> Key Programs</h4>
+                                <ul>
+                                    <li>BBA in Business Administration</li>
+                                    <li>MBA (Full-time & Executive)</li>
+                                    <li>M.Sc. Finance</li>
+                                    <li>Ph.D. Management Studies</li>
+                                </ul>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-microscope"></i> Research Areas</h4>
+                                <ul>
+                                    <li>Digital Marketing</li>
+                                    <li>Financial Technology</li>
+                                    <li>Strategic Management</li>
+                                    <li>Entrepreneurship</li>
+                                </ul>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-user-tie"></i> Department Head</h4>
+                                <div class="faculty-info">
+                                    <strong>Dr. Robert Anderson</strong>
+                                    <p>Ph.D. Harvard | 18 years experience</p>
+                                    <p><i class="fas fa-envelope"></i> r.anderson@college.edu</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-award"></i> Accreditations</h4>
+                                <div class="accreditation-badges">
+                                    <span class="accred-badge">AACSB</span>
+                                    <span class="accred-badge">EQUIS</span>
+                                    <span class="accred-badge">AMBA</span>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-download"></i> Department Resources</h4>
+                                <div class="resources-list">
+                                    <a href="#" class="resource-link" onclick="alert('Downloading MBA Prospectus...'); return false;">
+                                        <i class="fas fa-file-alt"></i>
+                                        <span>MBA Program Prospectus</span>
+                                    </a>
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Case Studies...'); return false;">
+                                        <i class="fas fa-briefcase"></i>
+                                        <span>Business Case Studies</span>
+                                    </a>
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Internship Guide...'); return false;">
+                                        <i class="fas fa-handshake"></i>
+                                        <span>Internship Opportunities</span>
+                                    </a>
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Alumni Success Stories...'); return false;">
+                                        <i class="fas fa-trophy"></i>
+                                        <span>Alumni Success Stories</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-briefcase"></i> Career Outcomes</h4>
+                                <p class="career-stat">90% placement rate with average salary of $72,000</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="department-card-footer">
+                        <button class="dept-action-btn primary" onclick="window.location.href='#contact'">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </button>
+                        <button class="dept-action-btn secondary expand-btn">
+                            <i class="fas fa-chevron-down"></i> View Details
+                        </button>
+                    </div>
                 </div>
-                <div class="department-card">
-                    <i class="fas fa-flask"></i>
-                    <h3>Sciences</h3>
-                    <p>Physics, Chemistry, Biology, Mathematics</p>
+
+                <!-- Sciences Department -->
+                <div class="department-card-enhanced" data-category="science">
+                    <div class="department-card-header">
+                        <div class="department-icon-wrapper">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <div class="department-title-section">
+                            <h3>Sciences</h3>
+                            <span class="department-badge">STEM</span>
+                        </div>
+                    </div>
+                    
+                    <div class="department-card-body">
+                        <p class="department-description">Excellence in Physics, Chemistry, Biology, and Mathematics with advanced research laboratories and interdisciplinary collaboration.</p>
+                        
+                        <div class="department-stats">
+                            <div class="stat-box">
+                                <i class="fas fa-users"></i>
+                                <div>
+                                    <span class="stat-number">980</span>
+                                    <span class="stat-label">Students</span>
+                                </div>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <div>
+                                    <span class="stat-number">48</span>
+                                    <span class="stat-label">Faculty</span>
+                                </div>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-book"></i>
+                                <div>
+                                    <span class="stat-number">14</span>
+                                    <span class="stat-label">Programs</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="department-details">
+                            <div class="detail-section">
+                                <h4><i class="fas fa-graduation-cap"></i> Key Programs</h4>
+                                <ul>
+                                    <li>B.Sc. Physics</li>
+                                    <li>B.Sc. Chemistry</li>
+                                    <li>M.Sc. Biotechnology</li>
+                                    <li>Ph.D. Applied Mathematics</li>
+                                </ul>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-microscope"></i> Research Areas</h4>
+                                <ul>
+                                    <li>Quantum Physics</li>
+                                    <li>Biochemistry</li>
+                                    <li>Genetics & Genomics</li>
+                                    <li>Computational Mathematics</li>
+                                </ul>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-user-tie"></i> Department Head</h4>
+                                <div class="faculty-info">
+                                    <strong>Dr. Emily Thompson</strong>
+                                    <p>Ph.D. Cambridge | 16 years experience</p>
+                                    <p><i class="fas fa-envelope"></i> e.thompson@college.edu</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-award"></i> Accreditations</h4>
+                                <div class="accreditation-badges">
+                                    <span class="accred-badge">ACS</span>
+                                    <span class="accred-badge">APS</span>
+                                    <span class="accred-badge">NAAC</span>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-download"></i> Department Resources</h4>
+                                <div class="resources-list">
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Science Programs Guide...'); return false;">
+                                        <i class="fas fa-atom"></i>
+                                        <span>Science Programs Guide</span>
+                                    </a>
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Research Opportunities...'); return false;">
+                                        <i class="fas fa-microscope"></i>
+                                        <span>Research Opportunities</span>
+                                    </a>
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Lab Safety Manual...'); return false;">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>Laboratory Safety Manual</span>
+                                    </a>
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Equipment List...'); return false;">
+                                        <i class="fas fa-vial"></i>
+                                        <span>Lab Equipment & Facilities</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-briefcase"></i> Career Outcomes</h4>
+                                <p class="career-stat">88% placement rate with average salary of $65,000</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="department-card-footer">
+                        <button class="dept-action-btn primary" onclick="window.location.href='#contact'">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </button>
+                        <button class="dept-action-btn secondary expand-btn">
+                            <i class="fas fa-chevron-down"></i> View Details
+                        </button>
+                    </div>
                 </div>
-                <div class="department-card">
-                    <i class="fas fa-heartbeat"></i>
-                    <h3>Healthcare</h3>
-                    <p>Nursing, Pharmacy, Medicine, Allied Health</p>
+
+                <!-- Healthcare Department -->
+                <div class="department-card-enhanced" data-category="health">
+                    <div class="department-card-header">
+                        <div class="department-icon-wrapper">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="department-title-section">
+                            <h3>Healthcare & Medicine</h3>
+                            <span class="department-badge">Health</span>
+                        </div>
+                    </div>
+                    
+                    <div class="department-card-body">
+                        <p class="department-description">Premier healthcare education in Nursing, Pharmacy, Medicine, and Allied Health with hospital partnerships and clinical training.</p>
+                        
+                        <div class="department-stats">
+                            <div class="stat-box">
+                                <i class="fas fa-users"></i>
+                                <div>
+                                    <span class="stat-number">1,420</span>
+                                    <span class="stat-label">Students</span>
+                                </div>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <div>
+                                    <span class="stat-number">72</span>
+                                    <span class="stat-label">Faculty</span>
+                                </div>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-book"></i>
+                                <div>
+                                    <span class="stat-number">20</span>
+                                    <span class="stat-label">Programs</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="department-details">
+                            <div class="detail-section">
+                                <h4><i class="fas fa-graduation-cap"></i> Key Programs</h4>
+                                <ul>
+                                    <li>B.Sc. Nursing</li>
+                                    <li>Pharm.D. Pharmacy</li>
+                                    <li>M.D. Medicine</li>
+                                    <li>M.Sc. Public Health</li>
+                                </ul>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-microscope"></i> Research Areas</h4>
+                                <ul>
+                                    <li>Clinical Medicine</li>
+                                    <li>Pharmacology</li>
+                                    <li>Public Health</li>
+                                    <li>Medical Technology</li>
+                                </ul>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-user-tie"></i> Department Head</h4>
+                                <div class="faculty-info">
+                                    <strong>Dr. James Martinez</strong>
+                                    <p>M.D., Ph.D. Johns Hopkins | 22 years experience</p>
+                                    <p><i class="fas fa-envelope"></i> j.martinez@college.edu</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-award"></i> Accreditations</h4>
+                                <div class="accreditation-badges">
+                                    <span class="accred-badge">ACPE</span>
+                                    <span class="accred-badge">CCNE</span>
+                                    <span class="accred-badge">LCME</span>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-download"></i> Department Resources</h4>
+                                <div class="resources-list">
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Healthcare Programs Brochure...'); return false;">
+                                        <i class="fas fa-heartbeat"></i>
+                                        <span>Healthcare Programs Brochure</span>
+                                    </a>
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Clinical Training Info...'); return false;">
+                                        <i class="fas fa-stethoscope"></i>
+                                        <span>Clinical Training Information</span>
+                                    </a>
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Licensing Requirements...'); return false;">
+                                        <i class="fas fa-certificate"></i>
+                                        <span>Licensing & Certification</span>
+                                    </a>
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Hospital Partnership List...'); return false;">
+                                        <i class="fas fa-hospital"></i>
+                                        <span>Partner Hospitals & Clinics</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-briefcase"></i> Career Outcomes</h4>
+                                <p class="career-stat">96% placement rate with average salary of $82,000</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="department-card-footer">
+                        <button class="dept-action-btn primary" onclick="window.location.href='#contact'">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </button>
+                        <button class="dept-action-btn secondary expand-btn">
+                            <i class="fas fa-chevron-down"></i> View Details
+                        </button>
+                    </div>
                 </div>
-                <div class="department-card">
-                    <i class="fas fa-paint-brush"></i>
-                    <h3>Arts & Humanities</h3>
-                    <p>Design, Literature, History, Philosophy</p>
+
+                <!-- Arts & Humanities Department -->
+                <div class="department-card-enhanced" data-category="arts">
+                    <div class="department-card-header">
+                        <div class="department-icon-wrapper">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <div class="department-title-section">
+                            <h3>Arts & Humanities</h3>
+                            <span class="department-badge">Liberal Arts</span>
+                        </div>
+                    </div>
+                    
+                    <div class="department-card-body">
+                        <p class="department-description">Creative and critical thinking in Design, Literature, History, Philosophy with modern studios and interdisciplinary approaches.</p>
+                        
+                        <div class="department-stats">
+                            <div class="stat-box">
+                                <i class="fas fa-users"></i>
+                                <div>
+                                    <span class="stat-number">750</span>
+                                    <span class="stat-label">Students</span>
+                                </div>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <div>
+                                    <span class="stat-number">38</span>
+                                    <span class="stat-label">Faculty</span>
+                                </div>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-book"></i>
+                                <div>
+                                    <span class="stat-number">12</span>
+                                    <span class="stat-label">Programs</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="department-details">
+                            <div class="detail-section">
+                                <h4><i class="fas fa-graduation-cap"></i> Key Programs</h4>
+                                <ul>
+                                    <li>B.A. Graphic Design</li>
+                                    <li>B.A. English Literature</li>
+                                    <li>M.A. History</li>
+                                    <li>M.F.A. Creative Writing</li>
+                                </ul>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-microscope"></i> Research Areas</h4>
+                                <ul>
+                                    <li>Digital Media</li>
+                                    <li>Cultural Studies</li>
+                                    <li>Modern Philosophy</li>
+                                    <li>Art History</li>
+                                </ul>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-user-tie"></i> Department Head</h4>
+                                <div class="faculty-info">
+                                    <strong>Dr. Linda Davis</strong>
+                                    <p>Ph.D. Yale | 14 years experience</p>
+                                    <p><i class="fas fa-envelope"></i> l.davis@college.edu</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-award"></i> Accreditations</h4>
+                                <div class="accreditation-badges">
+                                    <span class="accred-badge">NASAD</span>
+                                    <span class="accred-badge">MLA</span>
+                                    <span class="accred-badge">AHA</span>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-download"></i> Department Resources</h4>
+                                <div class="resources-list">
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Arts Programs Catalog...'); return false;">
+                                        <i class="fas fa-palette"></i>
+                                        <span>Arts & Humanities Catalog</span>
+                                    </a>
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Portfolio Guidelines...'); return false;">
+                                        <i class="fas fa-images"></i>
+                                        <span>Portfolio Submission Guide</span>
+                                    </a>
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Exhibition Schedule...'); return false;">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>Student Exhibition Schedule</span>
+                                    </a>
+                                    <a href="#" class="resource-link" onclick="alert('Downloading Studio Access Info...'); return false;">
+                                        <i class="fas fa-paint-brush"></i>
+                                        <span>Studio & Workshop Access</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4><i class="fas fa-briefcase"></i> Career Outcomes</h4>
+                                <p class="career-stat">85% placement rate with average salary of $58,000</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="department-card-footer">
+                        <button class="dept-action-btn primary" onclick="window.location.href='#contact'">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </button>
+                        <button class="dept-action-btn secondary expand-btn">
+                            <i class="fas fa-chevron-down"></i> View Details
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

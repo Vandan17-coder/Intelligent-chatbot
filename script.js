@@ -1654,6 +1654,157 @@ function initAutoResizeInput() {
 }
 
 // ============================================
+// Department Section Functionality
+// ============================================
+function initDepartments() {
+    const expandButtons = document.querySelectorAll('.expand-btn');
+    const searchInput = document.getElementById('departmentSearch');
+    const filterSelect = document.getElementById('departmentFilter');
+    const departmentCards = document.querySelectorAll('.department-card-enhanced');
+
+    // Expand/Collapse functionality with smooth animation
+    expandButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const card = this.closest('.department-card-enhanced');
+            const isExpanding = !card.classList.contains('expanded');
+            
+            // Toggle expanded class
+            card.classList.toggle('expanded');
+            
+            // Update button text and icon with animation
+            const icon = this.querySelector('i');
+            
+            if (isExpanding) {
+                // Expanding - update content
+                icon.style.transform = 'rotate(180deg)';
+                this.innerHTML = '<i class="fas fa-chevron-down" style="transform: rotate(180deg);"></i> Hide Details';
+                this.setAttribute('aria-expanded', 'true');
+                
+                // Add expanding animation
+                card.style.animation = 'expandCard 0.5s ease-out';
+            } else {
+                // Collapsing - update content
+                this.innerHTML = '<i class="fas fa-chevron-down"></i> View Details';
+                this.setAttribute('aria-expanded', 'false');
+                
+                // Add collapsing animation
+                card.style.animation = 'collapseCard 0.5s ease-out';
+                
+                // Smooth scroll to card top when collapsing
+                setTimeout(() => {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
+            
+            // Remove animation class after animation completes
+            setTimeout(() => {
+                card.style.animation = '';
+            }, 500);
+        });
+    });
+
+    // Search functionality
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            filterDepartments(searchTerm, filterSelect ? filterSelect.value : 'all');
+        });
+    }
+
+    // Filter functionality
+    if (filterSelect) {
+        filterSelect.addEventListener('change', function() {
+            const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+            filterDepartments(searchTerm, this.value);
+        });
+    }
+
+    function filterDepartments(searchTerm, category) {
+        let visibleCount = 0;
+        
+        departmentCards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            const cardText = card.textContent.toLowerCase();
+            
+            const matchesSearch = cardText.includes(searchTerm);
+            const matchesCategory = category === 'all' || cardCategory === category;
+            
+            if (matchesSearch && matchesCategory) {
+                card.style.display = 'flex';
+                visibleCount++;
+                // Add fade-in animation
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'scale(1)';
+                }, visibleCount * 50); // Stagger animation
+            } else {
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    card.style.display = 'none';
+                }, 300);
+            }
+        });
+
+        // Show message if no results found
+        const visibleCards = Array.from(departmentCards).filter(card => 
+            card.style.display !== 'none'
+        );
+        
+        if (visibleCards.length === 0) {
+            showNoResultsMessage();
+        } else {
+            removeNoResultsMessage();
+        }
+    }
+
+    function showNoResultsMessage() {
+        removeNoResultsMessage(); // Remove existing message first
+        const grid = document.querySelector('.departments-grid');
+        const message = document.createElement('div');
+        message.className = 'no-results-message';
+        message.innerHTML = `
+            <i class="fas fa-search" style="font-size: 3rem; color: var(--text-secondary); margin-bottom: 1rem;"></i>
+            <h3 style="color: var(--text-primary); margin-bottom: 0.5rem;">No departments found</h3>
+            <p style="color: var(--text-secondary);">Try adjusting your search or filter criteria</p>
+        `;
+        message.style.cssText = `
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 2px dashed var(--border-color);
+        `;
+        grid.appendChild(message);
+    }
+
+    function removeNoResultsMessage() {
+        const existingMessage = document.querySelector('.no-results-message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+    }
+
+    // Add transition styles for smooth filtering
+    departmentCards.forEach(card => {
+        card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    });
+
+    // Animate cards on page load
+    departmentCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
+}
+
+// ============================================
 // Initialize All Functions
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -1675,6 +1826,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     initAutoResizeInput();
     initEnhancedAnimations();
+    initDepartments();
     
     // Add welcome message to console
     console.log('%c🤖 AI Campus Assistant', 'font-size: 20px; color: #1E3A8A; font-weight: bold;');
