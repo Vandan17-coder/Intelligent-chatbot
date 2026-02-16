@@ -718,8 +718,8 @@ function updateDashboardDisplay() {
     document.getElementById('studentName').textContent = `${studentProfile.firstName} ${studentProfile.lastName}`;
     document.getElementById('studentId').textContent = `ID: ${studentProfile.studentId}`;
     document.getElementById('studentStatus').textContent = studentProfile.status;
-    document.getElementById('coursesCount').textContent = `${coursesCount} Courses`;
-    document.getElementById('gpaValue').textContent = `GPA: ${cumulativeGpa}`;
+    document.getElementById('coursesCount').textContent = coursesCount;
+    document.getElementById('gpaValue').textContent = cumulativeGpa;
     
     // Update GPA display in header if exists
     const gpaDisplayValue = document.querySelector('.gpa-value');
