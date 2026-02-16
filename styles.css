@@ -31,19 +31,19 @@
     --shadow-hover: 0 12px 32px rgba(74, 144, 226, 0.18);
     --shadow-3d: 0 10px 30px rgba(102, 126, 234, 0.25);
     
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --gradient-secondary: linear-gradient(135deg, #4A90E2 0%, #7B68EE 100%);
-    --gradient-warm: linear-gradient(135deg, #FFB347 0%, #FF6B6B 100%);
+    /* Gradients - Lighter and more subtle */
+    --gradient-primary: linear-gradient(135deg, #8B9FEF 0%, #9B86C6 100%);
+    --gradient-secondary: linear-gradient(135deg, #6BA5E8 0%, #9B86EE 100%);
+    --gradient-warm: linear-gradient(135deg, #FFC870 0%, #FF9999 100%);
     --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
     --gradient-overlay: linear-gradient(180deg, rgba(74, 144, 226, 0.02) 0%, transparent 100%);
     
     /* Design System */
     --border-radius: 12px;
     --border-radius-lg: 20px;
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    --transition-3d: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-3d: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 /* Dark Mode Colors */
@@ -236,15 +236,15 @@ p {
 }
 
 .logo:hover {
-    transform: scale(1.1) rotateY(10deg) rotateX(5deg);
-    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    transform: scale(1.05) rotateY(5deg) rotateX(3deg);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.25);
 }
 
 .site-title {
     font-size: 1.6rem;
     font-weight: 700;
     letter-spacing: -0.6px;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     color: white;
 }
 
@@ -280,7 +280,7 @@ p {
 .nav-link.active {
     background: rgba(255, 255, 255, 0.15);
     color: white;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 
 .nav-link:hover::before,
@@ -309,7 +309,7 @@ p {
 
 .theme-toggle:hover {
     background: rgba(255, 255, 255, 0.25);
-    transform: scale(1.1) rotate(20deg);
+    transform: scale(1.05) rotate(10deg);
 }
 
 .theme-toggle:active {
@@ -350,8 +350,8 @@ p {
 }
 
 .login-btn:hover {
-    transform: translateY(-3px) scale(1.02) translateZ(10px);
-    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    transform: translateY(-1px) scale(1.01) translateZ(3px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.2);
     border-color: var(--primary-blue);
 }
 
@@ -516,8 +516,8 @@ p {
 
 .sidebar-section:hover {
     border-color: var(--primary-blue);
-    box-shadow: var(--shadow-3d);
-    transform: translateY(-4px) translateZ(10px);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px) translateZ(3px);
 }
 
 .section-header {
@@ -589,8 +589,8 @@ p {
 
 .student-info-section:hover {
     border: 2px solid rgba(255, 255, 255, 0.5) !important;
-    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.35);
-    transform: translateY(-4px) translateZ(15px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.2);
+    transform: translateY(-2px) translateZ(5px);
 }
 
 .student-info-section .section-header {
@@ -630,7 +630,7 @@ p {
 .student-avatar {
     width: 46px;
     height: 46px;
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.35);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -639,11 +639,12 @@ p {
     color: white;
     flex-shrink: 0;
     transition: var(--transition-smooth);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .student-info:hover .student-avatar {
-    transform: scale(1.08);
+    transform: scale(1.05);
 }
 
 .student-details {
@@ -659,20 +660,22 @@ p {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .student-details p {
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.95);
     font-size: 0.75rem;
     margin: 0 0 0.3rem 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 .student-status {
-    background: rgba(34, 197, 94, 0.3);
-    color: #6EE7B7;
+    background: rgba(34, 197, 94, 0.25);
+    color: #FFFFFF;
     padding: 0.3rem 0.85rem;
     border-radius: 20px;
     font-size: 0.7rem;
@@ -680,7 +683,9 @@ p {
     letter-spacing: 0.5px;
     text-transform: uppercase;
     display: inline-block;
-    box-shadow: 0 2px 6px rgba(34, 197, 94, 0.2);
+    box-shadow: 0 2px 6px rgba(34, 197, 94, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .dashboard-stats {
@@ -710,9 +715,9 @@ p {
 
 .stat-item:hover {
     background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px) translateZ(8px);
+    transform: translateY(-1px) translateZ(3px);
     border-color: rgba(255, 255, 255, 0.4);
-    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.25);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
 }
 
 .stat-icon {
@@ -745,14 +750,16 @@ p {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.3px;
-    opacity: 0.85;
+    opacity: 0.95;
     line-height: 1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .stat-value {
     font-size: 1.25rem;
     font-weight: 700;
     line-height: 1.1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .view-profile-btn {
@@ -775,8 +782,8 @@ p {
 }
 
 .view-profile-btn:hover {
-    transform: translateY(-2px) scale(1.02) translateZ(10px);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    transform: translateY(-1px) scale(1.01) translateZ(3px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.2);
 }
 
 .view-profile-btn i {
@@ -920,8 +927,8 @@ p {
 
 .event-item:hover {
     border-color: var(--primary-purple);
-    box-shadow: 0 8px 24px rgba(123, 104, 238, 0.25);
-    transform: translateY(-4px) scale(1.02) translateZ(8px);
+    box-shadow: 0 4px 16px rgba(123, 104, 238, 0.18);
+    transform: translateY(-2px) scale(1.01) translateZ(3px);
     background: var(--bg-primary);
 }
 
@@ -930,7 +937,7 @@ p {
 }
 
 .event-item:hover .event-date-badge {
-    transform: scale(1.1) rotate(-5deg);
+    transform: scale(1.05) rotate(-3deg);
 }
 
 .event-date-badge {
@@ -1042,8 +1049,8 @@ p {
 }
 
 .action-button.primary:hover {
-    transform: translateY(-2px) translateZ(10px);
-    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.35);
+    transform: translateY(-1px) translateZ(3px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.25);
     border-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -1082,8 +1089,8 @@ p {
 .quick-link-card:hover {
     border-color: var(--primary-blue);
     background: var(--bg-tertiary);
-    transform: translateY(-3px) translateZ(8px);
-    box-shadow: var(--shadow-3d);
+    transform: translateY(-2px) translateZ(3px);
+    box-shadow: var(--shadow-md);
 }
 
 .quick-link-icon {
@@ -1104,8 +1111,8 @@ p {
 }
 
 .quick-link-card:hover .quick-link-icon {
-    transform: scale(1.15) rotate(5deg) translateZ(10px);
-    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.35);
+    transform: scale(1.08) rotate(3deg) translateZ(3px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25);
 }
 
 .quick-link-text {
@@ -1303,13 +1310,13 @@ p {
 .suggestion-btn:hover {
     color: white;
     border-color: var(--primary-blue);
-    transform: translateY(-5px) scale(1.03) translateZ(10px);
-    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.35);
+    transform: translateY(-2px) scale(1.01) translateZ(3px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.25);
 }
 
 .suggestion-btn:hover i {
     color: white;
-    transform: scale(1.2) rotate(10deg);
+    transform: scale(1.1) rotate(5deg);
 }
 
 .suggestion-btn:active {
@@ -1395,7 +1402,7 @@ p {
 }
 
 .message-bubble:hover {
-    transform: scale(1.02);
+    transform: scale(1.01);
     box-shadow: var(--shadow-md);
 }
 
@@ -2036,8 +2043,8 @@ p {
 }
 
 .about-card:hover {
-    transform: translateY(-5px) translateZ(10px);
-    box-shadow: var(--shadow-3d);
+    transform: translateY(-2px) translateZ(3px);
+    box-shadow: var(--shadow-md);
     border-color: var(--primary-blue);
 }
 
@@ -2153,8 +2160,8 @@ p {
 }
 
 .department-card-enhanced:hover {
-    transform: translateY(-8px) translateZ(15px);
-    box-shadow: var(--shadow-3d), 0 12px 40px rgba(102, 126, 234, 0.2);
+    transform: translateY(-3px) translateZ(5px);
+    box-shadow: var(--shadow-lg), 0 8px 24px rgba(102, 126, 234, 0.15);
     border-color: var(--primary-blue);
 }
 
@@ -2479,7 +2486,7 @@ p {
 
 .department-card:hover {
     border-color: var(--primary-blue);
-    transform: translateY(-5px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
 
@@ -2607,7 +2614,7 @@ p {
 }
 
 .submit-btn:hover {
-    transform: translateY(-2px) translateZ(6px);
+    transform: translateY(-1px) translateZ(3px);
     box-shadow: var(--shadow-hover);
 }
 
@@ -2795,7 +2802,7 @@ p {
 }
 
 .login-submit-btn:hover {
-    transform: translateY(-2px) translateZ(5px);
+    transform: translateY(-1px) translateZ(3px);
     box-shadow: var(--shadow-hover);
 }
 
@@ -3566,7 +3573,7 @@ body.dark-mode .student-status-badge.active {
 
 .summary-card:hover {
     border-color: var(--primary-blue);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
     box-shadow: var(--shadow-sm);
 }
 
@@ -4231,7 +4238,7 @@ body.dark-mode .grade-F {
 .course-card:hover {
     border-color: var(--primary-blue);
     box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 
 .course-card-header {
@@ -4774,12 +4781,12 @@ body.dark-mode .grade-F {
 }
 
 .student-info:hover, .grade-card:hover, .material-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 .faq-item:hover {
-    transform: translateX(5px);
+    transform: translateX(3px);
     border-left-color: var(--primary-blue);
 }
 
