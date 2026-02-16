@@ -95,34 +95,7 @@ body {
     position: relative;
 }
 
-/* Light decorative elements */
-body::before {
-    content: '';
-    position: fixed;
-    top: -200px;
-    right: -200px;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(102, 126, 234, 0.06) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    animation: float 20s ease-in-out infinite;
-}
-
-body::after {
-    content: '';
-    position: fixed;
-    bottom: -150px;
-    left: -150px;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(123, 104, 238, 0.05) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    animation: float 25s ease-in-out infinite reverse;
-}
+/* Light decorative elements - REMOVED FOR CLEANER UI */
 
 /* Ensure all direct children of body are above decorative elements */
 body > * {
@@ -330,23 +303,7 @@ p {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: var(--transition-3d);
     position: relative;
-    overflow: hidden;
     transform-style: preserve-3d;
-}
-
-.login-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.2), transparent);
-    transition: left 0.5s;
-}
-
-.login-btn:hover::before {
-    left: 100%;
 }
 
 .login-btn:hover {
@@ -1175,32 +1132,6 @@ p {
     overflow: hidden;
 }
 
-.welcome-section::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(102, 126, 234, 0.08) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    animation: float 15s ease-in-out infinite;
-}
-
-.welcome-section::after {
-    content: '';
-    position: absolute;
-    bottom: -50%;
-    left: -10%;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(123, 104, 238, 0.06) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    animation: float 18s ease-in-out infinite reverse;
-}
-
 .welcome-icon {
     width: 80px;
     height: 80px;
@@ -1214,16 +1145,12 @@ p {
     font-size: 2.2rem;
     color: white;
     box-shadow: var(--shadow-3d);
-    animation: float 3s ease-in-out infinite;
     position: relative;
     z-index: 1;
     transform-style: preserve-3d;
 }
 
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
+/* Float animation - REMOVED */
 
 .welcome-title {
     font-size: 2rem;
@@ -1269,31 +1196,6 @@ p {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: var(--shadow-sm);
     position: relative;
-    overflow: hidden;
-}
-
-.suggestion-btn::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: var(--gradient-primary);
-    transform: translate(-50%, -50%);
-    transition: width 0.5s ease, height 0.5s ease;
-    z-index: 0;
-}
-
-.suggestion-btn:hover::before {
-    width: 300%;
-    height: 300%;
-}
-
-.suggestion-btn > * {
-    position: relative;
-    z-index: 1;
 }
 
 .dark-mode .suggestion-btn {
@@ -1308,6 +1210,7 @@ p {
 }
 
 .suggestion-btn:hover {
+    background: var(--gradient-primary);
     color: white;
     border-color: var(--primary-blue);
     transform: translateY(-2px) scale(1.01) translateZ(3px);
