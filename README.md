@@ -1,14 +1,21 @@
-# 🎓 AI Campus Assistant - Intelligent College Chatbot
+# 🎓 Academic Portal Assistant - University Information System
 
-A modern, professional web-based chatbot UI designed for educational institutions. Features a clean, academic theme with smart functionality and responsive design.
+A sophisticated, professional web-based chatbot UI designed specifically for educational institutions. Features an elegant academic theme with comprehensive functionality and responsive design inspired by traditional university aesthetics.
 
 ## ✨ Features
 
 ### 🎨 Design
-- **Modern UI/UX**: Clean, minimal, and futuristic design
-- **Color Palette**: Deep blue (#1E3A8A), white, and light gray with subtle gradients
-- **Glassmorphism Effects**: Smooth shadows, rounded corners (12px)
-- **Typography**: Inter font family for clean readability
+- **Professional Academic UI/UX**: Refined, sophisticated, and timeless academic design
+- **University Color Palette**: 
+  - Oxford Navy (#002147) - Primary brand color
+  - Academic Burgundy (#8B1538) - Accent color
+  - Academic Gold (#C5A572) - Highlight color
+  - Professional Teal & Slate for complementary elements
+- **Premium Effects**: Elegant shadows, refined borders, and sophisticated gradients
+- **Typography**: 
+  - Inter font family for body text and UI elements
+  - Crimson Pro serif font for headings (traditional academic feel)
+  - Optimized for readability with proper line-height and letter-spacing
 
 ### 🌓 Dark Mode
 - Toggle between light and dark themes
