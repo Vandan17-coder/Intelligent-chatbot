@@ -753,6 +753,341 @@ p {
 }
 
 /* ============================================
+   Attendance Modal Styles
+   ============================================ */
+.attendance-modal-content {
+    max-width: 1200px;
+    width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.attendance-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--border-color);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.attendance-header > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.attendance-header i {
+    font-size: 2rem;
+    color: var(--primary-blue);
+}
+
+.attendance-header h2 {
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.overall-attendance-badge {
+    background: var(--gradient-primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    box-shadow: var(--shadow-md);
+}
+
+.badge-label {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.badge-value {
+    color: white;
+    font-size: 1.75rem;
+    font-weight: 800;
+}
+
+.attendance-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.attendance-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.attendance-card {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.attendance-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #FF6B6B, #FFB347);
+    opacity: 0;
+    transition: var(--transition-smooth);
+}
+
+.attendance-card.lecture-card::before {
+    background: linear-gradient(90deg, #4A90E2, #7B68EE);
+}
+
+.attendance-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-blue);
+}
+
+.attendance-card:hover::before {
+    opacity: 1;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.card-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.lab-icon {
+    background: linear-gradient(135deg, #FF6B6B, #FFB347);
+}
+
+.lecture-icon {
+    background: linear-gradient(135deg, #4A90E2, #7B68EE);
+}
+
+.card-header h3 {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.card-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+}
+
+.stat-row .stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.stat-row .stat-value {
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.attendance-percentage-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.percentage-circle {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.percentage-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.percentage-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.percentage-symbol {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.status-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.lab-status {
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 179, 71, 0.1));
+    color: #FF6B6B;
+    border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+.lecture-status {
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.1), rgba(123, 104, 238, 0.1));
+    color: #4A90E2;
+    border: 1px solid rgba(74, 144, 226, 0.3);
+}
+
+.attendance-summary {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+}
+
+.summary-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.summary-header i {
+    font-size: 1.5rem;
+    color: var(--primary-blue);
+}
+
+.summary-header h3 {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg-tertiary);
+    border-radius: 10px;
+    transition: var(--transition-smooth);
+}
+
+.summary-item:hover {
+    background: var(--bg-primary);
+    transform: translateY(-2px);
+}
+
+.summary-item i {
+    font-size: 1.5rem;
+    color: var(--primary-blue);
+}
+
+.summary-item > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.summary-item .summary-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.summary-item .summary-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.attendance-alert {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.1), rgba(123, 104, 238, 0.1));
+    border: 1px solid var(--primary-blue);
+    border-radius: 10px;
+}
+
+.attendance-alert i {
+    font-size: 1.5rem;
+    color: var(--primary-blue);
+}
+
+.attendance-alert p {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.attendance-alert.warning {
+    background: linear-gradient(135deg, rgba(255, 179, 71, 0.1), rgba(255, 107, 107, 0.1));
+    border-color: #FFB347;
+}
+
+.attendance-alert.warning i {
+    color: #FFB347;
+}
+
+@media (max-width: 768px) {
+    .attendance-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .attendance-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* ============================================
    Announcements Section
    ============================================ */
 .announcements-section {

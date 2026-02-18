@@ -1580,6 +1580,157 @@
         </div>
     </div>
 
+    <!-- Attendance Modal -->
+    <div id="attendanceModal" class="modal">
+        <div class="modal-content attendance-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="attendance-header">
+                <div>
+                    <i class="fas fa-calendar-check"></i>
+                    <h2>Attendance Report</h2>
+                </div>
+                <div class="overall-attendance-badge">
+                    <span class="badge-label">Overall</span>
+                    <span class="badge-value" id="modalOverallAttendance">89%</span>
+                </div>
+            </div>
+            <div class="attendance-body">
+                <div class="attendance-cards">
+                    <div class="attendance-card lab-card">
+                        <div class="card-header">
+                            <div class="card-icon lab-icon">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                            <h3>Lab Sessions</h3>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-row">
+                                <span class="stat-label">Attended:</span>
+                                <span class="stat-value" id="labAttended">34</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Total Sessions:</span>
+                                <span class="stat-value" id="labTotal">40</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Absent:</span>
+                                <span class="stat-value" id="labAbsent">6</span>
+                            </div>
+                        </div>
+                        <div class="attendance-percentage-display">
+                            <div class="percentage-circle lab-circle">
+                                <svg width="120" height="120" viewBox="0 0 120 120">
+                                    <circle cx="60" cy="60" r="54" fill="none" stroke="#f0f0f0" stroke-width="8"></circle>
+                                    <circle id="labProgressCircle" cx="60" cy="60" r="54" fill="none" stroke="url(#labGradient)" stroke-width="8" stroke-linecap="round" stroke-dasharray="339.292" stroke-dashoffset="50.894" transform="rotate(-90 60 60)"></circle>
+                                    <defs>
+                                        <linearGradient id="labGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:1" />
+                                            <stop offset="100%" style="stop-color:#FFB347;stop-opacity:1" />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <div class="percentage-text">
+                                    <span class="percentage-number" id="labPercentage">85</span>
+                                    <span class="percentage-symbol">%</span>
+                                </div>
+                            </div>
+                            <div class="status-badge lab-status" id="labStatus">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Good</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="attendance-card lecture-card">
+                        <div class="card-header">
+                            <div class="card-icon lecture-icon">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <h3>Lecture Sessions</h3>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-row">
+                                <span class="stat-label">Attended:</span>
+                                <span class="stat-value" id="lectureAttended">46</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Total Sessions:</span>
+                                <span class="stat-value" id="lectureTotal">50</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Absent:</span>
+                                <span class="stat-value" id="lectureAbsent">4</span>
+                            </div>
+                        </div>
+                        <div class="attendance-percentage-display">
+                            <div class="percentage-circle lecture-circle">
+                                <svg width="120" height="120" viewBox="0 0 120 120">
+                                    <circle cx="60" cy="60" r="54" fill="none" stroke="#f0f0f0" stroke-width="8"></circle>
+                                    <circle id="lectureProgressCircle" cx="60" cy="60" r="54" fill="none" stroke="url(#lectureGradient)" stroke-width="8" stroke-linecap="round" stroke-dasharray="339.292" stroke-dashoffset="27.143" transform="rotate(-90 60 60)"></circle>
+                                    <defs>
+                                        <linearGradient id="lectureGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1" />
+                                            <stop offset="100%" style="stop-color:#7B68EE;stop-opacity:1" />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <div class="percentage-text">
+                                    <span class="percentage-number" id="lecturePercentage">92</span>
+                                    <span class="percentage-symbol">%</span>
+                                </div>
+                            </div>
+                            <div class="status-badge lecture-status" id="lectureStatus">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Excellent</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attendance-summary">
+                    <div class="summary-header">
+                        <i class="fas fa-chart-pie"></i>
+                        <h3>Attendance Summary</h3>
+                    </div>
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div>
+                                <span class="summary-label">Total Sessions</span>
+                                <span class="summary-value" id="totalSessions">90</span>
+                            </div>
+                        </div>
+                        <div class="summary-item">
+                            <i class="fas fa-check"></i>
+                            <div>
+                                <span class="summary-label">Total Attended</span>
+                                <span class="summary-value" id="totalAttended">80</span>
+                            </div>
+                        </div>
+                        <div class="summary-item">
+                            <i class="fas fa-times"></i>
+                            <div>
+                                <span class="summary-label">Total Absent</span>
+                                <span class="summary-value" id="totalAbsent">10</span>
+                            </div>
+                        </div>
+                        <div class="summary-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div>
+                                <span class="summary-label">Minimum Required</span>
+                                <span class="summary-value">75%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="attendance-alert" id="attendanceAlert">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Great job! You're maintaining excellent attendance. Keep it up!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">

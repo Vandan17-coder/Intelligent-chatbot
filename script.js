@@ -918,6 +918,9 @@ const attendanceData = {
 };
 
 function showAttendanceDetails() {
+    const attendanceModal = document.getElementById('attendanceModal');
+    
+    // Calculate percentages
     const labPercentage = Math.round((attendanceData.lab.attended / attendanceData.lab.total) * 100);
     const lecturePercentage = Math.round((attendanceData.lecture.attended / attendanceData.lecture.total) * 100);
     const overallPercentage = Math.round(
@@ -925,31 +928,95 @@ function showAttendanceDetails() {
         (attendanceData.lab.total + attendanceData.lecture.total)) * 100
     );
     
-    const attendanceMessage = `📊 Your Attendance Report\n\n` +
-        `🧪 Lab Sessions:\n` +
-        `   • Attended: ${attendanceData.lab.attended}/${attendanceData.lab.total} sessions\n` +
-        `   • Percentage: ${labPercentage}%\n` +
-        `   • Status: ${labPercentage >= 80 ? '✅ Good' : '⚠️ Needs Improvement'}\n\n` +
-        `📚 Lecture Sessions:\n` +
-        `   • Attended: ${attendanceData.lecture.attended}/${attendanceData.lecture.total} sessions\n` +
-        `   • Percentage: ${lecturePercentage}%\n` +
-        `   • Status: ${lecturePercentage >= 80 ? '✅ Good' : '⚠️ Needs Improvement'}\n\n` +
-        `📈 Overall Attendance: ${overallPercentage}%\n` +
-        `Minimum Required: 75%\n\n` +
-        `${overallPercentage >= 75 ? '✅ You meet the attendance requirements!' : '⚠️ Please improve your attendance to meet minimum requirements.'}\n\n` +
-        `Tip: Maintaining 80%+ attendance is recommended for academic success.`;
+    // Update modal content
+    document.getElementById('modalOverallAttendance').textContent = `${overallPercentage}%`;
     
-    // Add message to chat
-    addMessage(attendanceMessage, 'bot');
+    // Lab data
+    document.getElementById('labAttended').textContent = attendanceData.lab.attended;
+    document.getElementById('labTotal').textContent = attendanceData.lab.total;
+    document.getElementById('labAbsent').textContent = attendanceData.lab.total - attendanceData.lab.attended;
+    document.getElementById('labPercentage').textContent = labPercentage;
     
-    // Show chat if hidden
-    if (!chatContainer.classList.contains('active')) {
-        chatContainer.classList.add('active');
-        welcomeSection.style.display = 'none';
+    // Lecture data
+    document.getElementById('lectureAttended').textContent = attendanceData.lecture.attended;
+    document.getElementById('lectureTotal').textContent = attendanceData.lecture.total;
+    document.getElementById('lectureAbsent').textContent = attendanceData.lecture.total - attendanceData.lecture.attended;
+    document.getElementById('lecturePercentage').textContent = lecturePercentage;
+    
+    // Summary data
+    const totalSessions = attendanceData.lab.total + attendanceData.lecture.total;
+    const totalAttended = attendanceData.lab.attended + attendanceData.lecture.attended;
+    document.getElementById('totalSessions').textContent = totalSessions;
+    document.getElementById('totalAttended').textContent = totalAttended;
+    document.getElementById('totalAbsent').textContent = totalSessions - totalAttended;
+    
+    // Update circular progress bars
+    updateCircularProgress('labProgressCircle', labPercentage);
+    updateCircularProgress('lectureProgressCircle', lecturePercentage);
+    
+    // Update status badges
+    const labStatus = document.getElementById('labStatus');
+    if (labPercentage >= 90) {
+        labStatus.innerHTML = '<i class="fas fa-check-circle"></i><span>Excellent</span>';
+    } else if (labPercentage >= 80) {
+        labStatus.innerHTML = '<i class="fas fa-check-circle"></i><span>Good</span>';
+    } else if (labPercentage >= 75) {
+        labStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i><span>Fair</span>';
+    } else {
+        labStatus.innerHTML = '<i class="fas fa-times-circle"></i><span>At Risk</span>';
     }
     
-    // Scroll to bottom
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+    const lectureStatus = document.getElementById('lectureStatus');
+    if (lecturePercentage >= 90) {
+        lectureStatus.innerHTML = '<i class="fas fa-check-circle"></i><span>Excellent</span>';
+    } else if (lecturePercentage >= 80) {
+        lectureStatus.innerHTML = '<i class="fas fa-check-circle"></i><span>Good</span>';
+    } else if (lecturePercentage >= 75) {
+        lectureStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i><span>Fair</span>';
+    } else {
+        lectureStatus.innerHTML = '<i class="fas fa-times-circle"></i><span>At Risk</span>';
+    }
+    
+    // Update alert message
+    const alertBox = document.getElementById('attendanceAlert');
+    if (overallPercentage >= 90) {
+        alertBox.className = 'attendance-alert';
+        alertBox.innerHTML = '<i class="fas fa-check-circle"></i><p>Excellent! You\'re maintaining outstanding attendance. Keep up the great work!</p>';
+    } else if (overallPercentage >= 80) {
+        alertBox.className = 'attendance-alert';
+        alertBox.innerHTML = '<i class="fas fa-info-circle"></i><p>Great job! You\'re maintaining good attendance. Keep it up!</p>';
+    } else if (overallPercentage >= 75) {
+        alertBox.className = 'attendance-alert warning';
+        alertBox.innerHTML = '<i class="fas fa-exclamation-triangle"></i><p>You meet the minimum requirement, but consider attending more sessions for better academic performance.</p>';
+    } else {
+        alertBox.className = 'attendance-alert warning';
+        alertBox.innerHTML = '<i class="fas fa-exclamation-triangle"></i><p>Warning: Your attendance is below the minimum requirement of 75%. Please improve your attendance.</p>';
+    }
+    
+    // Show modal
+    attendanceModal.classList.add('active');
+}
+
+function updateCircularProgress(elementId, percentage) {
+    const circle = document.getElementById(elementId);
+    const circumference = 2 * Math.PI * 54; // radius is 54
+    const offset = circumference - (percentage / 100) * circumference;
+    circle.style.strokeDashoffset = offset;
+}
+
+function initAttendanceModal() {
+    const attendanceModal = document.getElementById('attendanceModal');
+    const closeBtn = attendanceModal.querySelector('.close-modal');
+    
+    closeBtn.addEventListener('click', () => {
+        attendanceModal.classList.remove('active');
+    });
+    
+    attendanceModal.addEventListener('click', (e) => {
+        if (e.target === attendanceModal) {
+            attendanceModal.classList.remove('active');
+        }
+    });
 }
 
 // ============================================
@@ -1879,6 +1946,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFAQs();
     initGrades();
     initStudentDashboard();
+    initAttendanceModal();
     initContactForm();
     initNewsletterForm();
     initScrollAnimations();
