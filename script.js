@@ -647,6 +647,7 @@ function initStudentDashboard() {
     const studentProfileModal = document.getElementById('studentProfileModal');
     const coursesStatBtn = document.getElementById('coursesStatBtn');
     const gpaStatBtn = document.getElementById('gpaStatBtn');
+    const attendanceStatBtn = document.getElementById('attendanceStatBtn');
     
     // Update dashboard display
     updateDashboardDisplay();
@@ -672,6 +673,12 @@ function initStudentDashboard() {
     gpaStatBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         document.getElementById('gradesBtn').click();
+    });
+    
+    attendanceStatBtn.style.cursor = 'pointer';
+    attendanceStatBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showAttendanceDetails();
     });
     
     // Profile tabs
@@ -720,6 +727,13 @@ function updateDashboardDisplay() {
     document.getElementById('studentStatus').textContent = studentProfile.status;
     document.getElementById('coursesCount').textContent = coursesCount;
     document.getElementById('gpaValue').textContent = cumulativeGpa;
+    
+    // Update attendance
+    const overallAttendance = Math.round(
+        ((attendanceData.lab.attended + attendanceData.lecture.attended) / 
+        (attendanceData.lab.total + attendanceData.lecture.total)) * 100
+    );
+    document.getElementById('attendanceValue').textContent = `${overallAttendance}%`;
     
     // Update GPA display in header if exists
     const gpaDisplayValue = document.querySelector('.gpa-value');
@@ -892,6 +906,50 @@ function changeAvatar() {
     document.querySelectorAll('.student-avatar i, .profile-avatar-large i').forEach(icon => {
         icon.className = `fas ${studentProfile.avatarIcon}`;
     });
+}
+
+// ============================================
+// Attendance Functionality
+// ============================================
+
+const attendanceData = {
+    lab: { attended: 34, total: 40 },
+    lecture: { attended: 46, total: 50 }
+};
+
+function showAttendanceDetails() {
+    const labPercentage = Math.round((attendanceData.lab.attended / attendanceData.lab.total) * 100);
+    const lecturePercentage = Math.round((attendanceData.lecture.attended / attendanceData.lecture.total) * 100);
+    const overallPercentage = Math.round(
+        ((attendanceData.lab.attended + attendanceData.lecture.attended) / 
+        (attendanceData.lab.total + attendanceData.lecture.total)) * 100
+    );
+    
+    const attendanceMessage = `📊 Your Attendance Report\n\n` +
+        `🧪 Lab Sessions:\n` +
+        `   • Attended: ${attendanceData.lab.attended}/${attendanceData.lab.total} sessions\n` +
+        `   • Percentage: ${labPercentage}%\n` +
+        `   • Status: ${labPercentage >= 80 ? '✅ Good' : '⚠️ Needs Improvement'}\n\n` +
+        `📚 Lecture Sessions:\n` +
+        `   • Attended: ${attendanceData.lecture.attended}/${attendanceData.lecture.total} sessions\n` +
+        `   • Percentage: ${lecturePercentage}%\n` +
+        `   • Status: ${lecturePercentage >= 80 ? '✅ Good' : '⚠️ Needs Improvement'}\n\n` +
+        `📈 Overall Attendance: ${overallPercentage}%\n` +
+        `Minimum Required: 75%\n\n` +
+        `${overallPercentage >= 75 ? '✅ You meet the attendance requirements!' : '⚠️ Please improve your attendance to meet minimum requirements.'}\n\n` +
+        `Tip: Maintaining 80%+ attendance is recommended for academic success.`;
+    
+    // Add message to chat
+    addMessage(attendanceMessage, 'bot');
+    
+    // Show chat if hidden
+    if (!chatContainer.classList.contains('active')) {
+        chatContainer.classList.add('active');
+        welcomeSection.style.display = 'none';
+    }
+    
+    // Scroll to bottom
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
 // ============================================
