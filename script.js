@@ -913,8 +913,108 @@ function changeAvatar() {
 // ============================================
 
 const attendanceData = {
-    lab: { attended: 34, total: 40 },
-    lecture: { attended: 46, total: 50 }
+    lab: { 
+        attended: 34, 
+        total: 40,
+        sessions: [
+            { id: 1, date: '2026-01-15', topic: 'Introduction to Programming Lab', status: 'present' },
+            { id: 2, date: '2026-01-22', topic: 'Data Structures Lab', status: 'present' },
+            { id: 3, date: '2026-01-29', topic: 'Algorithm Implementation', status: 'absent' },
+            { id: 4, date: '2026-02-05', topic: 'Database Design Lab', status: 'present' },
+            { id: 5, date: '2026-02-12', topic: 'Web Development Lab', status: 'present' },
+            { id: 6, date: '2026-02-19', topic: 'API Integration Lab', status: 'absent' },
+            { id: 7, date: '2026-02-26', topic: 'Testing & Debugging', status: 'present' },
+            { id: 8, date: '2026-03-05', topic: 'Cloud Computing Lab', status: 'present' },
+            { id: 9, date: '2026-03-12', topic: 'Security Fundamentals', status: 'present' },
+            { id: 10, date: '2026-03-19', topic: 'Machine Learning Lab', status: 'absent' },
+            { id: 11, date: '2026-03-26', topic: 'DevOps Practices', status: 'present' },
+            { id: 12, date: '2026-04-02', topic: 'Mobile App Development', status: 'present' },
+            { id: 13, date: '2026-04-09', topic: 'Microservices Lab', status: 'present' },
+            { id: 14, date: '2026-04-16', topic: 'Version Control Systems', status: 'absent' },
+            { id: 15, date: '2026-04-23', topic: 'Containerization Lab', status: 'present' },
+            { id: 16, date: '2026-04-30', topic: 'CI/CD Pipeline', status: 'present' },
+            { id: 17, date: '2026-05-07', topic: 'Performance Optimization', status: 'present' },
+            { id: 18, date: '2026-05-14', topic: 'Advanced Algorithms', status: 'present' },
+            { id: 19, date: '2026-05-21', topic: 'System Design Lab', status: 'absent' },
+            { id: 20, date: '2026-05-28', topic: 'Code Review Session', status: 'present' },
+            { id: 21, date: '2026-06-04', topic: 'Network Programming', status: 'present' },
+            { id: 22, date: '2026-06-11', topic: 'Distributed Systems', status: 'present' },
+            { id: 23, date: '2026-06-18', topic: 'Real-time Systems', status: 'present' },
+            { id: 24, date: '2026-06-25', topic: 'Blockchain Development', status: 'present' },
+            { id: 25, date: '2026-07-02', topic: 'IoT Lab Session', status: 'present' },
+            { id: 26, date: '2026-07-09', topic: 'AR/VR Development', status: 'present' },
+            { id: 27, date: '2026-07-16', topic: 'Graphics Programming', status: 'present' },
+            { id: 28, date: '2026-07-23', topic: 'Game Development Lab', status: 'absent' },
+            { id: 29, date: '2026-07-30', topic: 'Compiler Design', status: 'present' },
+            { id: 30, date: '2026-08-06', topic: 'OS Kernel Programming', status: 'present' },
+            { id: 31, date: '2026-08-13', topic: 'Embedded Systems', status: 'present' },
+            { id: 32, date: '2026-08-20', topic: 'Robotics Programming', status: 'present' },
+            { id: 33, date: '2026-08-27', topic: 'AI Ethics Lab', status: 'present' },
+            { id: 34, date: '2026-09-03', topic: 'Quantum Computing Intro', status: 'present' },
+            { id: 35, date: '2026-09-10', topic: 'Cybersecurity Lab', status: 'present' },
+            { id: 36, date: '2026-09-17', topic: 'Advanced Web Technologies', status: 'present' },
+            { id: 37, date: '2026-09-24', topic: 'Data Visualization Lab', status: 'present' },
+            { id: 38, date: '2026-10-01', topic: 'Big Data Processing', status: 'present' },
+            { id: 39, date: '2026-10-08', topic: 'Natural Language Processing', status: 'present' },
+            { id: 40, date: '2026-10-15', topic: 'Final Project Lab', status: 'present' }
+        ]
+    },
+    lecture: { 
+        attended: 46, 
+        total: 50,
+        sessions: [
+            { id: 1, date: '2026-01-13', topic: 'Introduction to Computer Science', status: 'present' },
+            { id: 2, date: '2026-01-15', topic: 'Programming Fundamentals', status: 'present' },
+            { id: 3, date: '2026-01-20', topic: 'Object-Oriented Programming', status: 'present' },
+            { id: 4, date: '2026-01-22', topic: 'Data Structures Overview', status: 'present' },
+            { id: 5, date: '2026-01-27', topic: 'Algorithm Analysis', status: 'present' },
+            { id: 6, date: '2026-01-29', topic: 'Complexity Theory', status: 'absent' },
+            { id: 7, date: '2026-02-03', topic: 'Database Management Systems', status: 'present' },
+            { id: 8, date: '2026-02-05', topic: 'SQL and NoSQL', status: 'present' },
+            { id: 9, date: '2026-02-10', topic: 'Web Technologies', status: 'present' },
+            { id: 10, date: '2026-02-12', topic: 'Client-Server Architecture', status: 'present' },
+            { id: 11, date: '2026-02-17', topic: 'REST API Design', status: 'present' },
+            { id: 12, date: '2026-02-19', topic: 'Software Testing', status: 'present' },
+            { id: 13, date: '2026-02-24', topic: 'Software Engineering Principles', status: 'present' },
+            { id: 14, date: '2026-02-26', topic: 'Agile Methodologies', status: 'present' },
+            { id: 15, date: '2026-03-03', topic: 'Cloud Computing Fundamentals', status: 'present' },
+            { id: 16, date: '2026-03-05', topic: 'AWS Services Overview', status: 'present' },
+            { id: 17, date: '2026-03-10', topic: 'Network Security', status: 'absent' },
+            { id: 18, date: '2026-03-12', topic: 'Cryptography Basics', status: 'present' },
+            { id: 19, date: '2026-03-17', topic: 'Machine Learning Introduction', status: 'present' },
+            { id: 20, date: '2026-03-19', topic: 'Supervised Learning', status: 'present' },
+            { id: 21, date: '2026-03-24', topic: 'Unsupervised Learning', status: 'present' },
+            { id: 22, date: '2026-03-26', topic: 'Neural Networks', status: 'present' },
+            { id: 23, date: '2026-03-31', topic: 'Deep Learning', status: 'present' },
+            { id: 24, date: '2026-04-02', topic: 'DevOps Culture', status: 'present' },
+            { id: 25, date: '2026-04-07', topic: 'Continuous Integration', status: 'present' },
+            { id: 26, date: '2026-04-09', topic: 'Mobile Development Platforms', status: 'present' },
+            { id: 27, date: '2026-04-14', topic: 'iOS vs Android', status: 'present' },
+            { id: 28, date: '2026-04-16', topic: 'Microservices Architecture', status: 'present' },
+            { id: 29, date: '2026-04-21', topic: 'Service Mesh', status: 'absent' },
+            { id: 30, date: '2026-04-23', topic: 'Git Advanced Topics', status: 'present' },
+            { id: 31, date: '2026-04-28', topic: 'Docker and Kubernetes', status: 'present' },
+            { id: 32, date: '2026-04-30', topic: 'Infrastructure as Code', status: 'present' },
+            { id: 33, date: '2026-05-05', topic: 'Performance Tuning', status: 'present' },
+            { id: 34, date: '2026-05-07', topic: 'Scalability Patterns', status: 'present' },
+            { id: 35, date: '2026-05-12', topic: 'Design Patterns', status: 'present' },
+            { id: 36, date: '2026-05-14', topic: 'SOLID Principles', status: 'present' },
+            { id: 37, date: '2026-05-19', topic: 'System Design Fundamentals', status: 'present' },
+            { id: 38, date: '2026-05-21', topic: 'Distributed Systems', status: 'present' },
+            { id: 39, date: '2026-05-26', topic: 'CAP Theorem', status: 'absent' },
+            { id: 40, date: '2026-05-28', topic: 'Code Quality Metrics', status: 'present' },
+            { id: 41, date: '2026-06-02', topic: 'Network Protocols', status: 'present' },
+            { id: 42, date: '2026-06-04', topic: 'Socket Programming', status: 'present' },
+            { id: 43, date: '2026-06-09', topic: 'Concurrency Models', status: 'present' },
+            { id: 44, date: '2026-06-11', topic: 'Parallel Computing', status: 'present' },
+            { id: 45, date: '2026-06-16', topic: 'Real-time Data Processing', status: 'present' },
+            { id: 46, date: '2026-06-18', topic: 'Stream Processing', status: 'present' },
+            { id: 47, date: '2026-06-23', topic: 'Blockchain Technology', status: 'present' },
+            { id: 48, date: '2026-06-25', topic: 'Smart Contracts', status: 'present' },
+            { id: 49, date: '2026-06-30', topic: 'Future of Computing', status: 'present' },
+            { id: 50, date: '2026-07-02', topic: 'Course Review and Summary', status: 'present' }
+        ]
+    }
 };
 
 function showAttendanceDetails() {
@@ -1010,13 +1110,87 @@ function initAttendanceModal() {
     
     closeBtn.addEventListener('click', () => {
         attendanceModal.classList.remove('active');
+        hideDetailedSessions();
     });
     
     attendanceModal.addEventListener('click', (e) => {
         if (e.target === attendanceModal) {
             attendanceModal.classList.remove('active');
+            hideDetailedSessions();
         }
     });
+    
+    // Add click handlers to attendance cards
+    const labCard = document.querySelector('.lab-card');
+    const lectureCard = document.querySelector('.lecture-card');
+    
+    labCard.addEventListener('click', () => {
+        showDetailedSessions('lab');
+    });
+    
+    lectureCard.addEventListener('click', () => {
+        showDetailedSessions('lecture');
+    });
+}
+
+function showDetailedSessions(type) {
+    const detailedSection = document.getElementById('detailedSessionsSection');
+    const sessionsList = document.getElementById('sessionsList');
+    const sessionsTitle = document.getElementById('sessionsTitle');
+    const backBtn = document.getElementById('backToSummary');
+    
+    // Update title
+    sessionsTitle.textContent = type === 'lab' ? 'Lab Session Details' : 'Lecture Session Details';
+    
+    // Build sessions list
+    const sessions = attendanceData[type].sessions;
+    let html = '';
+    
+    sessions.forEach((session, index) => {
+        const statusClass = session.status === 'present' ? 'present' : 'absent';
+        const statusIcon = session.status === 'present' ? 'fa-check-circle' : 'fa-times-circle';
+        const statusText = session.status === 'present' ? 'Present' : 'Absent';
+        
+        html += `
+            <div class="session-item ${statusClass}">
+                <div class="session-number">${session.id}</div>
+                <div class="session-details">
+                    <div class="session-topic">${session.topic}</div>
+                    <div class="session-date">
+                        <i class="fas fa-calendar"></i>
+                        ${formatDate(session.date)}
+                    </div>
+                </div>
+                <div class="session-status ${statusClass}">
+                    <i class="fas ${statusIcon}"></i>
+                    <span>${statusText}</span>
+                </div>
+            </div>
+        `;
+    });
+    
+    sessionsList.innerHTML = html;
+    
+    // Hide main content, show detailed section
+    document.querySelector('.attendance-cards').style.display = 'none';
+    document.querySelector('.attendance-summary').style.display = 'none';
+    detailedSection.style.display = 'block';
+    
+    // Add back button handler
+    backBtn.onclick = hideDetailedSessions;
+}
+
+function hideDetailedSessions() {
+    const detailedSection = document.getElementById('detailedSessionsSection');
+    document.querySelector('.attendance-cards').style.display = 'grid';
+    document.querySelector('.attendance-summary').style.display = 'block';
+    detailedSection.style.display = 'none';
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
 }
 
 // ============================================
