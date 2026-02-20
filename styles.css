@@ -3482,9 +3482,35 @@ p {
 }
 
 .department-card-enhanced.expanded .department-details {
-    max-height: 2000px;
+    max-height: 450px;
     opacity: 1;
     margin-top: 1rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 0.5rem;
+}
+
+/* Custom scrollbar for department details */
+.department-card-enhanced.expanded .department-details::-webkit-scrollbar {
+    width: 6px;
+}
+
+.department-card-enhanced.expanded .department-details::-webkit-scrollbar-track {
+    background: rgba(74, 144, 226, 0.05);
+    border-radius: 10px;
+}
+
+.department-card-enhanced.expanded .department-details::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+}
+
+.department-card-enhanced.expanded .department-details::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
+}
+
+.dark-mode .department-card-enhanced.expanded .department-details::-webkit-scrollbar-track {
+    background: rgba(102, 126, 234, 0.1);
 }
 
 .detail-section {
