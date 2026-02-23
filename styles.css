@@ -2,42 +2,42 @@
    Global Styles & CSS Variables
    ============================================ */
 :root {
-    /* Light Academic Portal Color Palette */
-    --primary-blue: #4A90E2;        /* Soft professional blue */
-    --primary-blue-dark: #3A7BC8;   /* Darker blue for hover */
-    --primary-purple: #7B68EE;      /* Medium slate blue */
-    --primary-teal: #20B2AA;        /* Light sea green */
-    --accent-coral: #FF6B6B;        /* Soft coral for accents */
-    --accent-amber: #FFB347;        /* Gentle amber */
+    /* Medium Vibrant Academic Portal Color Palette */
+    --primary-blue: #3b82f6;        /* Medium blue */
+    --primary-blue-dark: #2563eb;   /* Deeper blue for hover */
+    --primary-purple: #a855f7;      /* Medium purple */
+    --primary-teal: #14b8a6;        /* Medium teal */
+    --accent-coral: #f97316;        /* Medium orange */
+    --accent-amber: #eab308;        /* Medium yellow */
     
     /* Background Colors */
-    --bg-primary: #F8FAFB;          /* Very light blue-gray */
-    --bg-secondary: #FFFFFF;        /* Pure white */
-    --bg-tertiary: #F0F4F8;         /* Light blue tint */
-    --bg-accent: #FFF8F3;           /* Warm light background */
-    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-primary: #ffffff;          /* Pure white */
+    --bg-secondary: #fafbfc;        /* Very light gray */
+    --bg-tertiary: #eff6ff;         /* Very light blue */
+    --bg-accent: #fffbeb;           /* Very light yellow */
+    --bg-gradient: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
     
     /* Text Colors */
-    --text-primary: #2D3748;        /* Soft dark gray */
-    --text-secondary: #718096;      /* Medium gray */
-    --text-light: #A0AEC0;          /* Light gray */
-    --text-muted: #CBD5E0;          /* Very light gray */
+    --text-primary: #1f2937;        /* Dark gray */
+    --text-secondary: #4b5563;      /* Medium dark gray */
+    --text-light: #6b7280;          /* Medium gray */
+    --text-muted: #9ca3af;          /* Light gray */
     
     /* UI Elements */
-    --border-color: #E2E8F0;
-    --border-color-dark: #CBD5E0;
-    --shadow-sm: 0 2px 4px rgba(74, 144, 226, 0.08);
-    --shadow-md: 0 4px 12px rgba(74, 144, 226, 0.12);
-    --shadow-lg: 0 8px 24px rgba(74, 144, 226, 0.15);
-    --shadow-hover: 0 12px 32px rgba(74, 144, 226, 0.18);
-    --shadow-3d: 0 10px 30px rgba(102, 126, 234, 0.25);
+    --border-color: #e5e7eb;
+    --border-color-dark: #d1d5db;
+    --shadow-sm: 0 2px 4px rgba(59, 130, 246, 0.12);
+    --shadow-md: 0 4px 12px rgba(59, 130, 246, 0.15);
+    --shadow-lg: 0 8px 24px rgba(59, 130, 246, 0.18);
+    --shadow-hover: 0 12px 32px rgba(59, 130, 246, 0.22);
+    --shadow-3d: 0 10px 30px rgba(59, 130, 246, 0.25);
     
-    /* Gradients - Lighter and more subtle */
-    --gradient-primary: linear-gradient(135deg, #8B9FEF 0%, #9B86C6 100%);
-    --gradient-secondary: linear-gradient(135deg, #6BA5E8 0%, #9B86EE 100%);
-    --gradient-warm: linear-gradient(135deg, #FFC870 0%, #FF9999 100%);
-    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
-    --gradient-overlay: linear-gradient(180deg, rgba(74, 144, 226, 0.02) 0%, transparent 100%);
+    /* Gradients - Medium vibrant */
+    --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+    --gradient-secondary: linear-gradient(135deg, #14b8a6 0%, #8b5cf6 100%);
+    --gradient-warm: linear-gradient(135deg, #eab308 0%, #f97316 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.90));
+    --gradient-overlay: linear-gradient(180deg, rgba(59, 130, 246, 0.02) 0%, transparent 100%);
     
     /* Design System */
     --border-radius: 12px;
@@ -49,25 +49,25 @@
 
 /* Dark Mode Colors */
 body.dark-mode {
-    --bg-primary: #1A202C;          /* Soft dark background */
-    --bg-secondary: #2D3748;        /* Medium dark cards */
-    --bg-tertiary: #374151;         /* Elevated surfaces */
-    --bg-accent: #2C2825;           /* Dark warm accent */
+    --bg-primary: #111827;          /* Dark gray */
+    --bg-secondary: #1f2937;        /* Medium dark gray */
+    --bg-tertiary: #374151;         /* Light dark gray */
+    --bg-accent: #451a03;           /* Dark amber accent */
     
-    --text-primary: #F7FAFC;        /* Near white */
-    --text-secondary: #E2E8F0;      /* Light gray */
-    --text-light: #CBD5E0;          /* Medium gray */
-    --text-muted: #A0AEC0;          /* Muted gray */
+    --text-primary: #f9fafb;        /* Soft white */
+    --text-secondary: #e5e7eb;      /* Light gray */
+    --text-light: #d1d5db;          /* Medium light gray */
+    --text-muted: #9ca3af;          /* Muted gray */
     
-    --border-color: #4A5568;
-    --border-color-dark: #718096;
+    --border-color: #374151;
+    --border-color-dark: #4b5563;
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
     --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.6);
     
-    --gradient-glass: linear-gradient(135deg, rgba(45, 55, 72, 0.95), rgba(45, 55, 72, 0.85));
-    --gradient-overlay: linear-gradient(180deg, rgba(102, 126, 234, 0.03) 0%, transparent 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(31, 41, 55, 0.95), rgba(31, 41, 55, 0.90));
+    --gradient-overlay: linear-gradient(180deg, rgba(59, 130, 246, 0.05) 0%, transparent 100%);
 }
 
 /* ============================================
