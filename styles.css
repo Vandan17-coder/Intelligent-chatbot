@@ -116,175 +116,241 @@ body {
     position: absolute;
     bottom: -100px;
     background: radial-gradient(circle at 30% 30%, 
-        rgba(107, 128, 121, 0.3), 
-        rgba(157, 145, 163, 0.2),
-        rgba(179, 159, 122, 0.1));
+        rgba(107, 128, 121, 0.5), 
+        rgba(157, 145, 163, 0.35),
+        rgba(179, 159, 122, 0.2));
     border-radius: 50%;
-    opacity: 0.6;
-    animation: float-up 15s infinite ease-in;
+    opacity: 0.75;
     box-shadow: 
-        0 8px 16px rgba(107, 128, 121, 0.2),
-        inset 0 -10px 20px rgba(255, 255, 255, 0.3),
-        inset 0 10px 20px rgba(107, 128, 121, 0.1);
-    backdrop-filter: blur(2px);
+        0 4px 20px rgba(107, 128, 121, 0.3),
+        inset 0 -10px 20px rgba(255, 255, 255, 0.4),
+        inset 0 10px 20px rgba(107, 128, 121, 0.2);
+    backdrop-filter: blur(3px);
     transform-style: preserve-3d;
+    border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-/* Individual bubble variations */
+/* Individual bubble variations with random animations */
 .bubble:nth-child(1) {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     left: 10%;
-    animation-duration: 12s;
+    animation: float-up 12s infinite ease-in-out;
     animation-delay: 0s;
 }
 
 .bubble:nth-child(2) {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     left: 20%;
-    animation-duration: 14s;
+    animation: float-up-alt 15s infinite ease-in-out;
     animation-delay: 2s;
 }
 
 .bubble:nth-child(3) {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     left: 30%;
-    animation-duration: 10s;
+    animation: float-up-random 11s infinite ease-in-out;
     animation-delay: 4s;
 }
 
 .bubble:nth-child(4) {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     left: 40%;
-    animation-duration: 16s;
+    animation: float-up 16s infinite ease-in-out;
     animation-delay: 1s;
 }
 
 .bubble:nth-child(5) {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     left: 50%;
-    animation-duration: 13s;
+    animation: float-up-alt 13s infinite ease-in-out;
     animation-delay: 3s;
 }
 
 .bubble:nth-child(6) {
-    width: 45px;
-    height: 45px;
+    width: 55px;
+    height: 55px;
     left: 60%;
-    animation-duration: 11s;
+    animation: float-up-random 14s infinite ease-in-out;
     animation-delay: 5s;
 }
 
 .bubble:nth-child(7) {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
     left: 70%;
-    animation-duration: 15s;
+    animation: float-up 15s infinite ease-in-out;
     animation-delay: 2s;
 }
 
 .bubble:nth-child(8) {
-    width: 55px;
-    height: 55px;
+    width: 65px;
+    height: 65px;
     left: 80%;
-    animation-duration: 12s;
+    animation: float-up-alt 13s infinite ease-in-out;
     animation-delay: 4s;
 }
 
 .bubble:nth-child(9) {
-    width: 65px;
-    height: 65px;
+    width: 75px;
+    height: 75px;
     left: 90%;
-    animation-duration: 14s;
+    animation: float-up-random 14s infinite ease-in-out;
     animation-delay: 1s;
 }
 
 .bubble:nth-child(10) {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     left: 15%;
-    animation-duration: 13s;
+    animation: float-up-alt 13s infinite ease-in-out;
     animation-delay: 3s;
 }
 
 .bubble:nth-child(11) {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     left: 25%;
-    animation-duration: 11s;
+    animation: float-up 12s infinite ease-in-out;
     animation-delay: 0s;
 }
 
 .bubble:nth-child(12) {
-    width: 45px;
-    height: 45px;
+    width: 55px;
+    height: 55px;
     left: 35%;
-    animation-duration: 16s;
+    animation: float-up-random 15s infinite ease-in-out;
     animation-delay: 2s;
 }
 
 .bubble:nth-child(13) {
-    width: 55px;
-    height: 55px;
+    width: 70px;
+    height: 70px;
     left: 55%;
-    animation-duration: 10s;
+    animation: float-up-alt 11s infinite ease-in-out;
     animation-delay: 5s;
 }
 
 .bubble:nth-child(14) {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
     left: 75%;
-    animation-duration: 14s;
+    animation: float-up 14s infinite ease-in-out;
     animation-delay: 1s;
 }
 
 .bubble:nth-child(15) {
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
     left: 85%;
-    animation-duration: 12s;
+    animation: float-up-random 13s infinite ease-in-out;
     animation-delay: 4s;
 }
 
-/* Bubble float animation with 3D transforms */
+/* Bubble float animations with random motions */
 @keyframes float-up {
     0% {
         bottom: -100px;
         opacity: 0;
-        transform: translateX(0) rotateX(0deg) rotateY(0deg) scale(0.8);
+        transform: translateX(0) translateY(0) scale(0.7);
     }
     10% {
-        opacity: 0.6;
+        opacity: 0.75;
+    }
+    25% {
+        transform: translateX(50px) translateY(-25vh) scale(0.9);
     }
     50% {
-        transform: translateX(40px) rotateX(180deg) rotateY(180deg) scale(1);
+        transform: translateX(-40px) translateY(-50vh) scale(1.05);
     }
-    80% {
-        opacity: 0.5;
+    75% {
+        transform: translateX(30px) translateY(-75vh) scale(0.95);
+    }
+    90% {
+        opacity: 0.6;
     }
     100% {
         bottom: 110vh;
         opacity: 0;
-        transform: translateX(-40px) rotateX(360deg) rotateY(360deg) scale(0.8);
+        transform: translateX(-20px) translateY(-100vh) scale(0.7);
+    }
+}
+
+@keyframes float-up-alt {
+    0% {
+        bottom: -100px;
+        opacity: 0;
+        transform: translateX(0) translateY(0) scale(0.8);
+    }
+    10% {
+        opacity: 0.75;
+    }
+    25% {
+        transform: translateX(-60px) translateY(-25vh) scale(1.1);
+    }
+    50% {
+        transform: translateX(45px) translateY(-50vh) scale(0.9);
+    }
+    75% {
+        transform: translateX(-35px) translateY(-75vh) scale(1);
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        bottom: 110vh;
+        opacity: 0;
+        transform: translateX(25px) translateY(-100vh) scale(0.75);
+    }
+}
+
+@keyframes float-up-random {
+    0% {
+        bottom: -100px;
+        opacity: 0;
+        transform: translateX(0) translateY(0) scale(0.7);
+    }
+    10% {
+        opacity: 0.75;
+    }
+    20% {
+        transform: translateX(70px) translateY(-20vh) scale(1);
+    }
+    40% {
+        transform: translateX(-30px) translateY(-40vh) scale(0.85);
+    }
+    60% {
+        transform: translateX(40px) translateY(-60vh) scale(1.1);
+    }
+    80% {
+        transform: translateX(-50px) translateY(-80vh) scale(0.9);
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        bottom: 110vh;
+        opacity: 0;
+        transform: translateX(15px) translateY(-100vh) scale(0.7);
     }
 }
 
 /* Dark mode adjustments for bubbles */
 body.dark-mode .bubble {
     background: radial-gradient(circle at 30% 30%, 
-        rgba(107, 128, 121, 0.4), 
-        rgba(157, 145, 163, 0.3),
-        rgba(179, 159, 122, 0.2));
+        rgba(107, 128, 121, 0.6), 
+        rgba(157, 145, 163, 0.45),
+        rgba(179, 159, 122, 0.3));
     box-shadow: 
-        0 8px 16px rgba(107, 128, 121, 0.3),
-        inset 0 -10px 20px rgba(255, 255, 255, 0.15),
-        inset 0 10px 20px rgba(107, 128, 121, 0.2);
-    opacity: 0.5;
+        0 4px 20px rgba(107, 128, 121, 0.4),
+        inset 0 -10px 20px rgba(255, 255, 255, 0.3),
+        inset 0 10px 20px rgba(107, 128, 121, 0.3);
+    opacity: 0.65;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Ensure all direct children of body are above decorative elements */
