@@ -13,6 +13,79 @@ const themeToggle = document.getElementById('themeToggle');
 const mobileMenuToggle = document.getElementById('mobileMenuToggle');
 const mobileNav = document.getElementById('mobileNav');
 
+// Rate limiting variables
+let lastMessageTime = 0;
+const MESSAGE_COOLDOWN = 1000; // 1 second between messages
+const MAX_MESSAGE_LENGTH = 500;
+
+// ============================================
+// Utility Functions
+// ============================================
+
+// Debounce function for performance optimization
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Safe localStorage operations with error handling
+const safeStorage = {
+    getItem: (key) => {
+        try {
+            return localStorage.getItem(key);
+        } catch (e) {
+            console.warn('localStorage access failed:', e);
+            return null;
+        }
+    },
+    setItem: (key, value) => {
+        try {
+            localStorage.setItem(key, value);
+            return true;
+        } catch (e) {
+            console.warn('localStorage save failed:', e);
+            return false;
+        }
+    },
+    removeItem: (key) => {
+        try {
+            localStorage.removeItem(key);
+            return true;
+        } catch (e) {
+            console.warn('localStorage remove failed:', e);
+            return false;
+        }
+    }
+};
+
+// Input validation
+function validateMessage(message) {
+    if (!message || message.trim().length === 0) {
+        return { valid: false, error: 'Message cannot be empty' };
+    }
+    if (message.length > MAX_MESSAGE_LENGTH) {
+        return { valid: false, error: `Message too long (max ${MAX_MESSAGE_LENGTH} characters)` };
+    }
+    return { valid: true };
+}
+
+// Rate limiting check
+function canSendMessage() {
+    const now = Date.now();
+    if (now - lastMessageTime < MESSAGE_COOLDOWN) {
+        return false;
+    }
+    lastMessageTime = now;
+    return true;
+}
+
 // ============================================
 // Chat Functionality
 // ============================================
@@ -54,8 +127,20 @@ function initChat() {
     // Event listeners
     sendBtn.addEventListener('click', handleSendMessage);
     chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
             handleSendMessage();
+        }
+    });
+
+    // Input character counter
+    chatInput.addEventListener('input', () => {
+        const length = chatInput.value.length;
+        if (length > MAX_MESSAGE_LENGTH * 0.9) {
+            // Show warning when approaching limit
+            chatInput.style.borderColor = 'var(--accent-terracotta)';
+        } else {
+            chatInput.style.borderColor = '';
         }
     });
 
@@ -65,20 +150,37 @@ function initChat() {
             const query = btn.getAttribute('data-query');
             if (query) {
                 chatInput.value = query;
+                chatInput.focus();
                 handleSendMessage();
             }
         });
     });
 
-    // Voice button (placeholder functionality)
+    // Voice button
     voiceBtn.addEventListener('click', handleVoiceInput);
+    
+    // Add keyboard shortcuts info
+    chatInput.setAttribute('title', 'Press Enter to send (500 character limit)');
 }
 
 // Handle send message
 function handleSendMessage() {
     const message = chatInput.value.trim();
     
-    if (message === '') return;
+    // Validate message
+    const validation = validateMessage(message);
+    if (!validation.valid) {
+        if (validation.error !== 'Message cannot be empty') {
+            showErrorNotification(validation.error);
+        }
+        return;
+    }
+    
+    // Check rate limiting
+    if (!canSendMessage()) {
+        showErrorNotification('Please wait before sending another message');
+        return;
+    }
     
     // Hide welcome section and show chat
     if (!chatContainer.classList.contains('active')) {
@@ -101,6 +203,25 @@ function handleSendMessage() {
         const response = getBotResponse(message);
         addMessage(response, 'bot');
     }, 1500 + Math.random() * 1000); // Random delay between 1.5-2.5 seconds
+}
+
+// Show error notification
+function showErrorNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'error-notification';
+    notification.textContent = message;
+    notification.setAttribute('role', 'alert');
+    notification.setAttribute('aria-live', 'polite');
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 10);
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
 }
 
 // Add message to chat
@@ -156,40 +277,66 @@ function hideTypingIndicator() {
     typingIndicator.classList.remove('active');
 }
 
-// Voice input (placeholder)
+// Voice input with error handling
 function handleVoiceInput() {
     // Check if browser supports speech recognition
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        const recognition = new SpeechRecognition();
-        
-        recognition.lang = 'en-US';
-        recognition.continuous = false;
-        recognition.interimResults = false;
-        
-        recognition.onstart = () => {
-            voiceBtn.style.color = '#EF4444'; // Red to indicate recording
-            voiceBtn.innerHTML = '<i class="fas fa-microphone-slash"></i>';
-        };
-        
-        recognition.onresult = (event) => {
-            const transcript = event.results[0][0].transcript;
-            chatInput.value = transcript;
-        };
-        
-        recognition.onerror = (event) => {
-            console.error('Speech recognition error:', event.error);
-            alert('Could not recognize speech. Please try again.');
-        };
-        
-        recognition.onend = () => {
-            voiceBtn.style.color = '';
-            voiceBtn.innerHTML = '<i class="fas fa-microphone"></i>';
-        };
-        
-        recognition.start();
+        try {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            
+            recognition.lang = 'en-US';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+            
+            recognition.onstart = () => {
+                voiceBtn.style.color = '#EF4444'; // Red to indicate recording
+                voiceBtn.innerHTML = '<i class="fas fa-microphone-slash"></i>';
+                voiceBtn.setAttribute('aria-label', 'Stop voice input');
+            };
+            
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                chatInput.value = transcript;
+                chatInput.focus();
+            };
+            
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                let errorMessage = 'Could not recognize speech. Please try again.';
+                
+                switch(event.error) {
+                    case 'no-speech':
+                        errorMessage = 'No speech detected. Please try again.';
+                        break;
+                    case 'audio-capture':
+                        errorMessage = 'No microphone found. Please check your microphone.';
+                        break;
+                    case 'not-allowed':
+                        errorMessage = 'Microphone access denied. Please allow microphone access.';
+                        break;
+                    case 'network':
+                        errorMessage = 'Network error. Please check your connection.';
+                        break;
+                }
+                
+                showErrorNotification(errorMessage);
+            };
+            
+            recognition.onend = () => {
+                voiceBtn.style.color = '';
+                voiceBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+                voiceBtn.setAttribute('aria-label', 'Start voice input');
+            };
+            
+            recognition.start();
+        } catch (error) {
+            console.error('Speech recognition initialization failed:', error);
+            showErrorNotification('Voice input failed to start. Please try again.');
+        }
     } else {
-        alert('Speech recognition is not supported in your browser. Please use Chrome or Edge.');
+        showErrorNotification('Speech recognition is not supported in your browser. Please use Chrome or Edge.');
     }
 }
 
@@ -197,24 +344,29 @@ function handleVoiceInput() {
 // Dark Mode Toggle
 // ============================================
 function initThemeToggle() {
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
+    // Check for saved theme preference with error handling
+    const savedTheme = safeStorage.getItem('theme');
     
     if (savedTheme === 'dark') {
         document.body.classList.add('dark-mode');
         themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        themeToggle.setAttribute('aria-label', 'Switch to light mode');
+    } else {
+        themeToggle.setAttribute('aria-label', 'Switch to dark mode');
     }
     
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
         
-        // Update icon
+        // Update icon and save preference
         if (document.body.classList.contains('dark-mode')) {
             themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            localStorage.setItem('theme', 'dark');
+            themeToggle.setAttribute('aria-label', 'Switch to light mode');
+            safeStorage.setItem('theme', 'dark');
         } else {
             themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            localStorage.setItem('theme', 'light');
+            themeToggle.setAttribute('aria-label', 'Switch to dark mode');
+            safeStorage.setItem('theme', 'light');
         }
     });
 }
@@ -224,16 +376,22 @@ function initThemeToggle() {
 // ============================================
 function initMobileMenu() {
     mobileMenuToggle.addEventListener('click', () => {
+        const isExpanded = mobileNav.classList.contains('active');
         mobileNav.classList.toggle('active');
+        
+        // Update aria-expanded attribute
+        mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
         
         // Update icon
         const icon = mobileMenuToggle.querySelector('i');
         if (mobileNav.classList.contains('active')) {
             icon.classList.remove('fa-bars');
             icon.classList.add('fa-times');
+            mobileMenuToggle.setAttribute('aria-label', 'Close mobile menu');
         } else {
             icon.classList.remove('fa-times');
             icon.classList.add('fa-bars');
+            mobileMenuToggle.setAttribute('aria-label', 'Open mobile menu');
         }
     });
     
@@ -242,10 +400,25 @@ function initMobileMenu() {
     mobileNavLinks.forEach(link => {
         link.addEventListener('click', () => {
             mobileNav.classList.remove('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            mobileMenuToggle.setAttribute('aria-label', 'Open mobile menu');
             const icon = mobileMenuToggle.querySelector('i');
             icon.classList.remove('fa-times');
             icon.classList.add('fa-bars');
         });
+    });
+    
+    // Close mobile menu on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileNav.classList.contains('active')) {
+            mobileNav.classList.remove('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            mobileMenuToggle.setAttribute('aria-label', 'Open mobile menu');
+            const icon = mobileMenuToggle.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+            mobileMenuToggle.focus();
+        }
     });
 }
 
@@ -294,10 +467,13 @@ function initSmoothScroll() {
         });
     });
     
-    // Update active link on scroll
-    window.addEventListener('scroll', () => {
+    // Update active link on scroll with debouncing for better performance
+    const debouncedScrollHandler = debounce(() => {
         const sections = ['home', 'about', 'departments', 'contact'];
-        const headerHeight = document.querySelector('.header').offsetHeight;
+        const header = document.querySelector('.header');
+        if (!header) return;
+        
+        const headerHeight = header.offsetHeight;
         const scrollPosition = window.scrollY + headerHeight + 100;
         
         sections.forEach(sectionId => {
@@ -316,7 +492,9 @@ function initSmoothScroll() {
                 }
             }
         });
-    });
+    }, 100);
+    
+    window.addEventListener('scroll', debouncedScrollHandler);
 }
 
 // ============================================
@@ -1873,27 +2051,57 @@ function initNewsletterForm() {
         const input = newsletterForm.querySelector('input');
         const button = newsletterForm.querySelector('button');
         
+        // Better email validation regex
+        const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+        
         button.addEventListener('click', (e) => {
             e.preventDefault();
             const email = input.value.trim();
             
             if (email === '') {
-                alert('Please enter your email address.');
+                showErrorNotification('Please enter your email address.');
+                input.focus();
                 return;
             }
             
             // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address.');
+                showErrorNotification('Please enter a valid email address.');
+                input.focus();
                 return;
             }
             
-            // Simulate subscription
-            alert('Thank you for subscribing! You will receive updates at ' + email);
+            // Simulate subscription success
+            showSuccessNotification('Thank you for subscribing! You will receive updates at ' + email);
             input.value = '';
         });
+        
+        // Allow form submission on Enter key
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                button.click();
+            }
+        });
     }
+}
+
+// Show success notification
+function showSuccessNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'success-notification';
+    notification.textContent = message;
+    notification.setAttribute('role', 'status');
+    notification.setAttribute('aria-live', 'polite');
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 10);
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+    }, 4000);
 }
 
 // ============================================
@@ -2180,13 +2388,40 @@ function initEnhancedAnimations() {
         });
     });
     
-    // Smooth appearance for modal windows
+    // Smooth appearance for modal windows with keyboard support
     const modals = document.querySelectorAll('.modal');
     modals.forEach(modal => {
-        const originalDisplay = modal.style.display;
         modal.addEventListener('click', function(e) {
             if (e.target === this) {
                 this.classList.remove('active');
+            }
+        });
+        
+        // Trap focus within modal when open
+        modal.addEventListener('keydown', function(e) {
+            if (!this.classList.contains('active')) return;
+            
+            // Close modal on Escape key
+            if (e.key === 'Escape') {
+                this.classList.remove('active');
+                return;
+            }
+            
+            // Trap focus within modal
+            if (e.key === 'Tab') {
+                const focusableElements = this.querySelectorAll(
+                    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                );
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+                
+                if (e.shiftKey && document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                } else if (!e.shiftKey && document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
             }
         });
     });
@@ -2197,15 +2432,20 @@ function initEnhancedAnimations() {
         icon.style.animation = `float 3s ease-in-out ${index * 0.2}s infinite`;
     });
     
-    // Parallax effect for header
-    window.addEventListener('scroll', () => {
+    // Parallax effect for header with debouncing for better performance
+    const debouncedParallax = debounce(() => {
         const scrolled = window.pageYOffset;
         const header = document.querySelector('.header');
-        if (header) {
-            header.style.transform = `translateY(${scrolled * 0.5}px)`;
-            header.style.opacity = Math.max(0.5, 1 - scrolled / 500);
+        if (header && scrolled < 500) {
+            // Only apply parallax effect in the first 500px to avoid performance issues
+            requestAnimationFrame(() => {
+                header.style.transform = `translateY(${scrolled * 0.3}px)`;
+                header.style.opacity = Math.max(0.7, 1 - scrolled / 800);
+            });
         }
-    });
+    }, 16); // ~60fps
+    
+    window.addEventListener('scroll', debouncedParallax, { passive: true });
     
     // Add smooth transitions for theme toggle
     const themeToggle = document.getElementById('themeToggle');
